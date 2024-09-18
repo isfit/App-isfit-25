@@ -6,7 +6,7 @@
 expo start
 ```
 
-When expo runs correctly it will give you multiple options to look at the app. [Here are some ways to simulate the app](#using-simulators).
+When expo runs correctly it will give you multiple options to look at the app. [Here are some ways to simulate the app](#setup-simulators).
 
 [You can also encounter some problems with expo](#fix-expo).
 
@@ -24,6 +24,8 @@ When expo runs correctly it will give you multiple options to look at the app. [
 
 2. **Install dependencies**
 
+   After installing dependecies, try to run the application. Step 3 and 4 might not be necessary to do.
+
    ```
    npm install
    ```
@@ -34,17 +36,40 @@ When expo runs correctly it will give you multiple options to look at the app. [
    yarn install
    ```
 
-Install watchman
+3. **Install watchman**
 
-Install expo
+   ```
+    brew install watchman
+   ```
 
-## Using simulators
+4. **Install expo**
+   ```
+   npx install-expo-modules@latest
+   ```
 
-### IOS
+## Setup simulators
+
+### iOS
+
+Press i │ open iOS simulator
+
+1. Install Xcode
+
+2. Go to Locations in Settings
+
+3. Choose the newest version of Command Line Tools (Might already be selected, and you just need to click it once more).
+
+![Image of xcode settings](/src/assets/SetupGuide/xcodeSettingsLocations.png)
 
 ### Android
 
+Press a │ open Android
+
+- Information to be added.
+
 ### Web
+
+Press w │ open web
 
 ## Fix expo
 
@@ -55,5 +80,5 @@ Listed are known issues or bugs with expo and how to fix them.
 Might need to use "sudo" on mac.
 
 ```
-expo doctor --fix-dependencies
+npx expo-doctor
 ```
