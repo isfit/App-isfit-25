@@ -2,8 +2,10 @@
 
 ## Running the application
 
+First time? You will be asked to sign into [EAS account (Expo)](https://expo.dev/signup).
+
 ```
-expo start
+npx expo
 ```
 
 When expo runs correctly it will give you multiple options to look at the app. [Here are some ways to simulate the app](#setup-simulators).
