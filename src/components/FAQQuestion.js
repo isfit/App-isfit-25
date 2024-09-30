@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { LayoutAnimation, Text, StyleSheet, TouchableOpacity, View, UIManager } from "react-native";
-import Icon from "react-native-vector-icons/MaterialIcons";
 import { Platform } from 'react-native';
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 const styles = StyleSheet.create({
     title:{
