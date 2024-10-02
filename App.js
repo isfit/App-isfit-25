@@ -61,14 +61,14 @@ function HomeTabs() {
         component={EventScreen}
         options={{
           headerTintColor: "#FFF5F3",
-          backgroundColor: "#71DCFF", // Light blue
+          backgroundColor: "#0078A3",
           headerStyle: {
-            backgroundColor: "#141414", // Black
+            backgroundColor: "#0078A3",
           },
           tabBarIcon: ({ color }) => (
             <FontAwesome name="calendar" size={22} color={color} />
           ),
-          tabBarActiveTintColor: "#141414",
+          tabBarActiveTintColor: "#0078A3",
         }}
       />
       <Tab.Screen
@@ -127,12 +127,12 @@ function HomeTabs() {
         options={{
           headerTintColor: "#FFF5F3",
           headerStyle: {
-            backgroundColor: "#0078A3", // Blue
+            backgroundColor: "#71DCFF", // Blue
           },
           tabBarIcon: ({ color }) => (
             <FontAwesome5 name="question" size={20} color={color} />
           ),
-          tabBarActiveTintColor: "#0078A3",
+          tabBarActiveTintColor: "#71DCFF",
         }}
       />
     </Tab.Navigator>
