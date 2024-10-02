@@ -16,6 +16,18 @@ import AttractionBoxInfoScreen from "./src/screens/AttractionBoxInfoScreen";
 const width = Dimensions.get("screen").width;
 const height = Dimensions.get("screen").height;
 
+const launchScreens = [
+  require("./src/assets/LaunchScreens/cloudblue_black.png"),
+  require("./src/assets/LaunchScreens/cloudblue_white.png"),
+  require("./src/assets/LaunchScreens/lightblue_blue.png"),
+  require("./src/assets/LaunchScreens/pink_white.png"),
+  require("./src/assets/LaunchScreens/red_black.png"),
+  require("./src/assets/LaunchScreens/red_white.png"),
+  require("./src/assets/LaunchScreens/white_black.png"),
+  require("./src/assets/LaunchScreens/white_blue.png"),
+];
+
+
 const MapsStack = createStackNavigator();
 //Make to have a visible tabbar on these screens
 function MapsStackScreen() {
@@ -48,29 +60,29 @@ function HomeTabs() {
         name="Events"
         component={EventScreen}
         options={{
-          headerTintColor: "#FFFF",
-          backgroundColor: "#2596BE",
+          headerTintColor: "#FFF5F3",
+          backgroundColor: "#71DCFF", // Light blue
           headerStyle: {
-            backgroundColor: "#E63872",
+            backgroundColor: "#141414", // Black
           },
           tabBarIcon: ({ color }) => (
             <FontAwesome name="calendar" size={22} color={color} />
           ),
-          tabBarActiveTintColor: "#E63872",
+          tabBarActiveTintColor: "#141414",
         }}
       />
       <Tab.Screen
         name="Theme"
         component={ThemeScreen}
         options={{
-          headerTintColor: "#FFFF",
+          headerTintColor: "#FFF5F3",
           headerStyle: {
-            backgroundColor: "#F78D1F",
+            backgroundColor: "#C92332", // Red
           },
           tabBarIcon: ({ color }) => (
             <Entypo name="megaphone" size={23} color={color} />
           ),
-          tabBarActiveTintColor: "#F78D1F",
+          tabBarActiveTintColor: "#C92332",
         }}
       />
       {/* Map is bugged on Android */}
@@ -80,14 +92,14 @@ function HomeTabs() {
         component={MapsStackScreen}
         options={{
           headerTitle: "Explore Trondheim",
-          headerTintColor: "#FFFF",
+          headerTintColor: "#FFF5F3",
           headerStyle: {
-            backgroundColor: "#99499C",
+            backgroundColor: "#FF6D8A", // Pink
           },
           tabBarIcon: ({ color }) => (
             <Entypo name="globe" size={23} color={color} />
           ),
-          tabBarActiveTintColor: "#99499C",
+          tabBarActiveTintColor: "#FF6D8A",
         }}
       />
       ) : (
@@ -96,14 +108,14 @@ function HomeTabs() {
         component={AttractionStackScreen}
         options={{
           headerTitle: "Explore Trondheim",
-          headerTintColor: "#FFFF",
+          headerTintColor: "#FFF5F3", // White
           headerStyle: {
-            backgroundColor: "#99499C",
+            backgroundColor: "#FF6D8A", // Pink
           },
           tabBarIcon: ({ color }) => (
             <Entypo name="globe" size={23} color={color} />
           ),
-          tabBarActiveTintColor: "#99499C",
+          tabBarActiveTintColor: "#FF6D8A",
         }}
       />
       )}
@@ -113,14 +125,14 @@ function HomeTabs() {
         name="Information"
         component={FAQScreen}
         options={{
-          headerTintColor: "#FFFFFF",
+          headerTintColor: "#FFF5F3",
           headerStyle: {
-            backgroundColor: "#0197CC",
+            backgroundColor: "#0078A3", // Blue
           },
           tabBarIcon: ({ color }) => (
             <FontAwesome5 name="question" size={20} color={color} />
           ),
-          tabBarActiveTintColor: "#0197CC",
+          tabBarActiveTintColor: "#0078A3",
         }}
       />
     </Tab.Navigator>
@@ -145,21 +157,24 @@ function App() {
 
 //Own splashscreen that renders for 2 sek.
 function SplashScreen(props) {
+  // Get screen width and height
+  const { width, height } = Dimensions.get("window");
+  // Pick a random image
+  const randomImage = launchScreens[Math.floor(Math.random() * launchScreens.length)];
+
   useEffect(() => {
     const timer = setTimeout(() => {
       props.setLoading(!props.loading);
     }, 2000);
     return () => clearTimeout(timer);
   }, []);
+
   return (
-    <View style={{ backgroundColor: "#99499C", flex: 1 }}>
-      <View>
-        <Image
-          style={styles.picture}
-          source={require("./src/assets/launch_screen.png")}
-        />
-      </View>
-    </View>
+
+      <Image
+        style={{ width: width, height: height }} // Resize image to fit screen
+        source={randomImage} 
+      />
   );
 }
 
@@ -194,9 +209,8 @@ const styles = StyleSheet.create({
   },
   picture: {
     alignSelf: "center",
-    margin: width * 0.6,
-    height: height * 0.26,
-    size: 2,
+    margin: width * 0.5,
+    height: height * 0.5,
     resizeMode: "contain",
   },
 });

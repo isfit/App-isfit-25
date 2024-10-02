@@ -74,7 +74,7 @@ const AttractionBoxInfoScreen = ({ route, navigation }) => {
       <ScrollView style={{ flexGrow: 1}}>
         <View style={styles.topButtonContainer}>
           <TouchableOpacity onPress={() => navigation.navigate("AttractionBoxScreen")}>
-            <Feather name="arrow-left" size={40} color="#37894e" />
+            <Feather name="arrow-left" size={40} color="#C92332" />
           </TouchableOpacity>
           {isFavorite ? (
             <TouchableOpacity
@@ -83,7 +83,7 @@ const AttractionBoxInfoScreen = ({ route, navigation }) => {
                 await removeFavorites(itemId);
               }}
             >
-              <FontAwesome name="heart" size={35} color="#37894e" />
+              <FontAwesome name="heart" size={35} color="#C92332" />
             </TouchableOpacity>
           ) : (
             <TouchableOpacity
@@ -92,7 +92,7 @@ const AttractionBoxInfoScreen = ({ route, navigation }) => {
                 await storeFavorites(itemId);
               }}
             >
-              <FontAwesome name="heart-o" size={35} color="#37894e" />
+              <FontAwesome name="heart-o" size={35} color="#C92332" />
             </TouchableOpacity>
           )}
         </View>

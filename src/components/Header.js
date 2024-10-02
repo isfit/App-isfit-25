@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		height: height * 0.14,
 		flexDirection: 'row',
-		backgroundColor: '#99499C',
+		backgroundColor: '#0078A3',
 		fontSize: 20,
 	},
 	articleText: {
@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
 		paddingRight: width / 3, //nice size for touchable back button
 		paddingTop: height * 0.05,
 	},
+
 });
 
 export default Header;

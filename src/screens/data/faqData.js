@@ -16,7 +16,7 @@ export const faqQuestions = [
     }, 
     {
       title: "Where can I get information\nabout the workshops?",
-      data: "You get all of your workshop information from your workshop group in the slack workspace ISFiT23 - Participants"
+      data: "You get all of your workshop information from your workshop group in the slack workspace ISFiT25 - Participants"
     },
     {
       title: "Lost and found",
@@ -50,15 +50,15 @@ export const faqQuestions = [
     category: "Ceremonies",
     questions: [{
       title: "The Opening Ceremony",
-      data: "Dress code: Galla/national costume \nThe Opening Ceremony will happen Thursday 9th of February at Studentersamfundet.\n\nWelcome to Trondheim and ISFiT 2023! The Opening Ceremony kicks off the Festival and gathers all the participants and volunteers for a grand opening! The show takes place at Studentersamfundet where we meet for an evening of music, speeches and dances! We look forward to meeting you!"
+      data: "Dress code: Galla/national costume \nThe Opening Ceremony will happen TBA at Studentersamfundet.\n\nWelcome to Trondheim and ISFiT 2025! The Opening Ceremony kicks off the Festival and gathers all the participants and volunteers for a grand opening! The show takes place at Studentersamfundet where we meet for an evening of music, speeches and dances! We look forward to meeting you!"
     },
     {
       title: "The Student Peace Prize Ceremony",
-      data: "Dress code: Galla/national costume \nSunday 12th of February, we invite you to highlight and celebrate DOXA Magazine, the winner of the Student Peace Prize and their work. The Peace Prize ceremony is held in Olavshallen - Trondheims largest cultural center - and will be a night to remember!"
+      data: "Dress code: Galla/national costume \nTBA, we invite you to highlight and celebrate DOXA Magazine, the winner of the Student Peace Prize and their work. The Peace Prize ceremony is held in Olavshallen - Trondheims largest cultural center - and will be a night to remember!"
     },
     {
       title: "The Closing Ceremony",
-      data: "Dress code: Galla/national costume \nSunday 19th of February, as the festival comes to an end, what better way to gather participants and volunteers to honor what we have accomplished together? This evening we will fill Studentersamfundet one last time to celebrate the ISFiT-23!"
+      data: "Dress code: Galla/national costume \nTBA, as the festival comes to an end, what better way to gather participants and volunteers to honor what we have accomplished together? This evening we will fill Studentersamfundet one last time to celebrate the ISFiT-25!"
     }]
   }, {
     key: 4,
