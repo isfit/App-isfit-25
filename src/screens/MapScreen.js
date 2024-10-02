@@ -39,6 +39,12 @@ export default class MapScreen extends Component {
           activeMarkers: filteredMarkersList,
         });
       });
+    } else if (filter == "All") {
+      filteredMarkersList = attractionMarkers;
+      this.setState({
+        activeFilter: filter,
+        activeMarkers: filteredMarkersList,
+      });
     } else {
       filteredMarkersList = attractionMarkers.filter(
         (x) => x.filterKey == filter
@@ -60,6 +66,13 @@ export default class MapScreen extends Component {
       >
         <View style={{backgroundColor: '#D8BFD8', paddingVertical: 4,  }}>
           <ScrollView horizontal={true}>
+            <TouchableOpacity
+              style={styles.greenFilterButton}
+              onPress={() => this.onFilterChange("All")}
+            >
+              <Text>All places</Text>
+            </TouchableOpacity>
+
             <TouchableOpacity
               style={styles.purpleFilterButton}
               onPress={() => this.onFilterChange("Favorites")}
