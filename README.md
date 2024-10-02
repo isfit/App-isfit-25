@@ -84,3 +84,9 @@ Might need to use "sudo" on mac.
 ```
 npx expo-doctor
 ```
+
+## About package update 09/2024
+
+The old repo was outdated and it was necessary to update the packages. E.g., `This project is using an SDK version that by default targets Android API level 33 or lower. To submit your app to the Google Play Store after August 31 2024, you must target Android API level 34 or hig Advice: Upgrade to Expo SDK 50 or later, which by default supports Android API level 34.`
+
+The app is now updated to the latest version of Expo, i.e., ^51.0.34. Unfortunately, this Expo version does not support the newest versions of the react-packages. Therefore, be cautious and check with the Expo version if wanting to update react or other packages.
