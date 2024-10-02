@@ -93,7 +93,7 @@ const AttractionMarkerBox = (props) => {
             <MaterialIcons
               name={"keyboard-arrow-right"}
               size={30}
-              color="#37894E"
+              color="#C92332"
             />
           </View>
         </View>

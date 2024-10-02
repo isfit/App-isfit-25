@@ -60,29 +60,29 @@ function HomeTabs() {
         name="Events"
         component={EventScreen}
         options={{
-          headerTintColor: "#FFFF",
-          backgroundColor: "#2596BE",
+          headerTintColor: "#FFF5F3",
+          backgroundColor: "#71DCFF", // Light blue
           headerStyle: {
-            backgroundColor: "#E63872",
+            backgroundColor: "#141414", // Black
           },
           tabBarIcon: ({ color }) => (
             <FontAwesome name="calendar" size={22} color={color} />
           ),
-          tabBarActiveTintColor: "#E63872",
+          tabBarActiveTintColor: "#141414",
         }}
       />
       <Tab.Screen
         name="Theme"
         component={ThemeScreen}
         options={{
-          headerTintColor: "#FFFF",
+          headerTintColor: "#FFF5F3",
           headerStyle: {
-            backgroundColor: "#F78D1F",
+            backgroundColor: "#C92332", // Red
           },
           tabBarIcon: ({ color }) => (
             <Entypo name="megaphone" size={23} color={color} />
           ),
-          tabBarActiveTintColor: "#F78D1F",
+          tabBarActiveTintColor: "#C92332",
         }}
       />
       {/* Map is bugged on Android */}
@@ -92,14 +92,14 @@ function HomeTabs() {
         component={MapsStackScreen}
         options={{
           headerTitle: "Explore Trondheim",
-          headerTintColor: "#FFFF",
+          headerTintColor: "#FFF5F3",
           headerStyle: {
-            backgroundColor: "#99499C",
+            backgroundColor: "#FF6D8A", // Pink
           },
           tabBarIcon: ({ color }) => (
             <Entypo name="globe" size={23} color={color} />
           ),
-          tabBarActiveTintColor: "#99499C",
+          tabBarActiveTintColor: "#FF6D8A",
         }}
       />
       ) : (
@@ -108,14 +108,14 @@ function HomeTabs() {
         component={AttractionStackScreen}
         options={{
           headerTitle: "Explore Trondheim",
-          headerTintColor: "#FFFF",
+          headerTintColor: "#FFF5F3", // White
           headerStyle: {
-            backgroundColor: "#99499C",
+            backgroundColor: "#FF6D8A", // Pink
           },
           tabBarIcon: ({ color }) => (
             <Entypo name="globe" size={23} color={color} />
           ),
-          tabBarActiveTintColor: "#99499C",
+          tabBarActiveTintColor: "#FF6D8A",
         }}
       />
       )}
@@ -125,14 +125,14 @@ function HomeTabs() {
         name="Information"
         component={FAQScreen}
         options={{
-          headerTintColor: "#FFFFFF",
+          headerTintColor: "#FFF5F3",
           headerStyle: {
-            backgroundColor: "#0197CC",
+            backgroundColor: "#0078A3", // Blue
           },
           tabBarIcon: ({ color }) => (
             <FontAwesome5 name="question" size={20} color={color} />
           ),
-          tabBarActiveTintColor: "#0197CC",
+          tabBarActiveTintColor: "#0078A3",
         }}
       />
     </Tab.Navigator>
@@ -170,6 +170,7 @@ function SplashScreen(props) {
   }, []);
 
   return (
+
       <Image
         style={{ width: width, height: height }} // Resize image to fit screen
         source={randomImage} 
