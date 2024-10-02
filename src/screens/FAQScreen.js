@@ -50,7 +50,7 @@ export default function FAQScreen({ navigation }) {
     <ScrollView style={styles.container}>
       <View style={styles.descriptionTextContainer}>
         <Text style={styles.descriptionText}>Welcome to the information page for participants! Here you can find some practical information regarding the festival. 
-        Additional information will be posted on the ISFiT23 website.</Text>
+        Additional information will be posted on the ISFiT25 website.</Text>
         <View style={{flexDirection:'row'}}>
           <Text style={styles.linkTextDescription}>For more information visit</Text>
           <TouchableOpacity onPress={() => Linking.openURL('https://www.isfit.org/participant-info')} style={{backgroundColor: 'white'}}>
