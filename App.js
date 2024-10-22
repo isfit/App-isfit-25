@@ -86,7 +86,7 @@ function HomeTabs() {
         }}
       />
       {/* Map is bugged on Android */}
-      {Platform.OS === 'ios' ? (
+      {Platform.OS === 'ios' || 'android' ? (
         <Tab.Screen
         name="Explore"
         component={MapsStackScreen}
