@@ -58,6 +58,7 @@ function HomeTabs({ showAttractions, setShowAttractions }) {
 					headerStyle: {
 						backgroundColor: '#0078A3',
 					},
+					headerTitleAlign: 'center',
 					tabBarIcon: ({ color }) => (
 						<FontAwesome name='calendar' size={22} color={color} />
 					),
@@ -72,6 +73,7 @@ function HomeTabs({ showAttractions, setShowAttractions }) {
 					headerStyle: {
 						backgroundColor: '#C92332', // Red
 					},
+					headerTitleAlign: 'center',
 					tabBarIcon: ({ color }) => (
 						<Entypo name='megaphone' size={23} color={color} />
 					),
@@ -115,6 +117,7 @@ function HomeTabs({ showAttractions, setShowAttractions }) {
 					headerStyle: {
 						backgroundColor: '#71DCFF', // Blue
 					},
+					headerTitleAlign: 'center',
 					tabBarIcon: ({ color }) => (
 						<FontAwesome5 name='question' size={20} color={color} />
 					),
