@@ -226,7 +226,7 @@ export const attractionMarkers = [
     },{
         key: 15,
         filterKey: "Help",
-        title: 'Farmacy',
+        title: 'Pharmacy',
         shortDescription: "Open untill 12 pm everyday.",
         pressForMoreInfo: "Press for more info!",
         photographer: 'From: NidarosAvis',
@@ -278,20 +278,6 @@ export const attractionMarkers = [
         latLong: {
             latitude: 63.433541485723225, 
             longitude: 10.4015155,
-        },     
-    },{
-        key: 19,
-        filterKey: "Cafes",
-        title: 'Café Ni Muser',
-        shortDescription: "Lots of space to study with a buffet",
-        pressForMoreInfo: "Press for more info!",
-        photographer: 'From: Café Ni Muser Instagram',
-        info: 'MarkerInfo',
-        logo: require("../assets/ExploreTrondheim/Cafes/Cafe_Ni_Muser.png"),
-        information: "This café is located close to Nidarosomen, in a classy building with high ceilings. They have an à la carte menu, and also a lot of different buffets. Every weekday there is lunch buffet from 11 am to 3 pm, soup buffet every day from 3 pm to 9 pm. There is also Saturday buffet from 12 pm to 4 pm and a cake buffet on Sundays from 12 pm to 3 pm. They have really great coffee and some of the best cakes in the city. Opening hours are 11 am to 9 pm every day.",
-        latLong: {
-            latitude: 63.42754181547936, 
-            longitude: 10.393528784400365,
         },     
     },{
         key: 20,
@@ -476,20 +462,6 @@ export const attractionMarkers = [
             longitude: 10.36466150132522,
         },     
     },{
-        key: 33,
-        filterKey: "Eat",
-        title: 'Edoramen',
-        shortDescription: "Ramen, ramen and ramen",
-        pressForMoreInfo: "Press for more info!",
-        photographer: 'From: Visit Trondheim',
-        info: 'MarkerInfo',
-        logo: require("../assets/ExploreTrondheim/Eat/Edoramen.jpeg"),
-        information: "Edoramen combines Japanese tradition with Norwegian ingredients in a new and stylish restaurant. The restaurant is situated right outside the city center towards Lade, but it is easy to get there by foot or bus, with the closest bus stop being Ladeveien. Opening hours are 4 pm to 9 pm Wednesday to Sunday.",
-        latLong: {
-            latitude: 63.442319938662784, 
-            longitude:  10.43654132883602 ,
-        },     
-    },{
         key: 34,
         filterKey: "Eat",
         title: 'Lager 11',
@@ -502,34 +474,6 @@ export const attractionMarkers = [
         latLong: {
             latitude: 63.397780284108336, 
             longitude: 10.395717257672043  ,
-        },     
-    },{
-        key: 35,
-        filterKey: "Eat",
-        title: 'Selma',
-        shortDescription: "Organic, delicious pizza",
-        pressForMoreInfo: "Press for more info!",
-        photographer: 'From: Selmas instagram ',
-        info: 'MarkerInfo',
-        logo: require("../assets/ExploreTrondheim/Eat/Selmapizza.png"),
-        information: "Selma is located on Solsiden, one of the most known places in Trondheim. The pizza is delicious and the toppings are fun and a bit different, so this is the place to go if you want to try a twist to Italian pizzas, although they do serve other dishes as well. Opening hours are 12 pm to 11 pm Monday and Tuesday, 12 pm to 1 am Wednesday to Saturday and 1 pm to 10 pm Sundays. Menu: https://selmabar.no/",
-        latLong: {
-            latitude: 63.43496675254836,  
-            longitude: 10.412003584655917 ,
-        },     
-    },{
-        key: 36,
-        filterKey: "Eat",
-        title: 'Byhaven Kafe',
-        shortDescription: "Oldfashioned Norwegian supper",
-        pressForMoreInfo: "Press for more info!",
-        photographer: 'From: Selmas instagram ',
-        info: 'MarkerInfo',
-        logo: require("../assets/ExploreTrondheim/Eat/byhavenkafe.jpeg"),
-        information: "Byhaven Kafe is a cafe located on the third floor of the mall Byhaven. The cafe focuses on serving delicious 'husmannskost', which is traditional everyday dinners for Norwegians, but the meal of the day changes every week. If you are up for trying some traditional Norwegian supper, this is the place! Opening hours are the same as the mall, 9 am to 8 pm Monday to Friday and 10 am to 6 pm on Saturday.",
-        latLong: {
-            latitude: 63.43409983655455, 
-            longitude: 10.39650464603225  ,
         },     
     },{
         key: 37,
