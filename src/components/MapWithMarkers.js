@@ -40,7 +40,7 @@ export default function MapWithMarkers({ markersArray }) {
         >
           <Image
             style={styles.image}
-            source={require("../assets/ExploreTrondheim/ExploreTRDMarkerW.png")}
+            source={require("../assets/ExploreTrondheim/map-marker.png")}
           />
         </Marker>
       ))}
