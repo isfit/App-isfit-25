@@ -13,23 +13,20 @@ import MapWithMarkers from "../components/MapWithMarkers";
 
 const width = Dimensions.get("screen").width;
 const height = Dimensions.get("screen").height;
-const defaultFilter = "Trondheim";
 
 export default class MapScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
       data: props.data,
-      activeFilter: defaultFilter,
-      activeMarkers: attractionMarkers.filter(
-        (x) => x.filterKey == defaultFilter
-      ),
+      activeFilter: "All",
+      activeMarkers: attractionMarkers,
     };
   }
 
   onFilterChange(filter) {
-    var filteredMarkersList = [];
-    if (filter == "Favorites") {
+    let filteredMarkersList = [];
+    if (filter === "Favorites") {
       getStoredFavorites().then((storedFavorites) => {
         filteredMarkersList = attractionMarkers.filter((x) =>
           storedFavorites.includes(x.key)
@@ -39,7 +36,7 @@ export default class MapScreen extends Component {
           activeMarkers: filteredMarkersList,
         });
       });
-    } else if (filter == "All") {
+    } else if (filter === "All") {
       filteredMarkersList = attractionMarkers;
       this.setState({
         activeFilter: filter,
@@ -47,9 +44,8 @@ export default class MapScreen extends Component {
       });
     } else {
       filteredMarkersList = attractionMarkers.filter(
-        (x) => x.filterKey == filter
+        (x) => x.filterKey === filter
       );
-      // Close open marker
       this.setState({
         activeFilter: filter,
         activeMarkers: filteredMarkersList,
@@ -59,12 +55,9 @@ export default class MapScreen extends Component {
 
   render() {
     return (
-      <View
-        style={{
-          flex: 1,
-        }}
-      >
-        <View style={{backgroundColor: '#D8BFD8', paddingVertical: 4,  }}>
+      <View style={{ flex: 1 }}>
+        {/* Filter Buttons Section */}
+        <View style={{ backgroundColor: '#D8BFD8', paddingVertical: 4 }}>
           <ScrollView horizontal={true}>
             <TouchableOpacity
               style={styles.greenFilterButton}
@@ -72,77 +65,77 @@ export default class MapScreen extends Component {
             >
               <Text>All places</Text>
             </TouchableOpacity>
-
+  
             <TouchableOpacity
               style={styles.purpleFilterButton}
               onPress={() => this.onFilterChange("Favorites")}
             >
               <Text>Favorites</Text>
             </TouchableOpacity>
-
+  
             <TouchableOpacity
               style={styles.blueFilterButton}
-              onPress={() => this.onFilterChange(defaultFilter)}
+              onPress={() => this.onFilterChange("Trondheim")}
             >
               <Text>Trondheim 101</Text>
             </TouchableOpacity>
-
+  
             <TouchableOpacity
               style={styles.redFilterButton}
               onPress={() => this.onFilterChange("Help")}
             >
               <Text>Help</Text>
             </TouchableOpacity>
-
+  
             <TouchableOpacity
               style={styles.orangeFilterButton}
               onPress={() => this.onFilterChange("Cafes")}
             >
               <Text>Cafés to relax in</Text>
             </TouchableOpacity>
-
+  
             <TouchableOpacity
               style={styles.orangeFilterButton}
               onPress={() => this.onFilterChange("Eat")}
             >
               <Text>Places to eat</Text>
             </TouchableOpacity>
-
+  
             <TouchableOpacity
               style={styles.orangeFilterButton}
               onPress={() => this.onFilterChange("Drink")}
             >
               <Text>Places to drink</Text>
             </TouchableOpacity>
-
+  
             <TouchableOpacity
               style={styles.greenFilterButton}
               onPress={() => this.onFilterChange("FreshAir")}
             >
               <Text>Fresh air</Text>
             </TouchableOpacity>
-
+  
             <TouchableOpacity
               style={styles.greenFilterButton}
               onPress={() => this.onFilterChange("Activities")}
             >
               <Text>Activity for the body and soul</Text>
             </TouchableOpacity>
-
+  
             <TouchableOpacity
               style={styles.pinkFilterButton}
               onPress={() => this.onFilterChange("Shopping")}
             >
               <Text>Boutiques & Vintage shopping</Text>
             </TouchableOpacity>
-
+  
             <TouchableOpacity
               style={styles.purpleFilterButton}
               onPress={() => this.onFilterChange("Museums")}
             >
               <Text>Museums</Text>
             </TouchableOpacity>
-
+  
             <TouchableOpacity
               style={styles.yellowFilterButton}
               onPress={() => this.onFilterChange("Party")}
@@ -151,9 +144,19 @@ export default class MapScreen extends Component {
             </TouchableOpacity>
           </ScrollView>
         </View>
-        <MapWithMarkers
-          markersArray={this.state.activeMarkers}
-        ></MapWithMarkers>
+  
+        {/* Map with Icon */}
+        <View style={{ flex: 1 }}>
+          {/* Map section */}
+          <MapWithMarkers markersArray={this.state.activeMarkers} />
+  
+          {/* List icon overlay */}
+          <TouchableOpacity
+            style={styles.iconContainer}
+            onPress={() => this.onFilterChange("Museums")}
+          >
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -171,6 +174,17 @@ const getStoredFavorites = async () => {
 };
 
 const styles = StyleSheet.create({
+  iconContainer: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    zIndex: 10,
+  },
+  iconImage: {
+    width: 40,
+    height: 40,
+    resizeMode: 'contain',
+  },
   mapStyle: {
     width: width,
     height: height,

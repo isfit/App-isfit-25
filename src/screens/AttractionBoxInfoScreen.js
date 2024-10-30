@@ -14,7 +14,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const width = Dimensions.get("screen").width;
 const height = Dimensions.get("screen").height;
 
-//gets right params from the navigaton in MapScreen and through route prop.
 const AttractionBoxInfoScreen = ({ route, navigation }) => {
   const { itemId, itemTitle, itemPicture, itemInformation, itemPhotographer } =
     route.params;

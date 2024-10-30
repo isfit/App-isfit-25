@@ -13,16 +13,14 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const width = Dimensions.get("screen").width;
 const height = Dimensions.get("screen").height;
-const defaultFilter = "Trondheim";
+const defaultFilter = "All"; // Changed default filter to "All"
 
 export default function AttractionBoxScreen({ navigation }) {
   const scrollRef = useRef();
 
   const [state, setState] = useState({
     activeFilter: defaultFilter,
-    activeMarkers: attractionMarkers.filter(
-      (x) => x.filterKey == defaultFilter
-    ),
+    activeMarkers: attractionMarkers, // Set initial markers to all attractions
   });
 
   useEffect(() => {
@@ -35,11 +33,12 @@ export default function AttractionBoxScreen({ navigation }) {
   }, [navigation]);
 
   const onFilterChange = (filter) => {
-    console.log(filter)
-    var filteredMarkersList = [];
-    if (filter == "Favorites") {
+    console.log(filter);
+    let filteredMarkersList = [];
+    
+    if (filter === "Favorites") {
       getStoredFavorites().then((storedFavorites) => {
-        console.log(storedFavorites)
+        console.log(storedFavorites);
         filteredMarkersList = attractionMarkers.filter((x) =>
           storedFavorites.includes(x.key)
         );
@@ -48,9 +47,15 @@ export default function AttractionBoxScreen({ navigation }) {
           activeMarkers: filteredMarkersList,
         });
       });
+    } else if (filter === "All") {
+      filteredMarkersList = attractionMarkers; // Show all markers
+      setState({
+        activeFilter: filter,
+        activeMarkers: filteredMarkersList,
+      });
     } else {
       filteredMarkersList = attractionMarkers.filter(
-        (x) => x.filterKey == filter
+        (x) => x.filterKey === filter
       );
       // Close open marker
       setState({
@@ -65,6 +70,13 @@ export default function AttractionBoxScreen({ navigation }) {
       <View style={{ backgroundColor: "#FFF", paddingVertical: 4 }}>
         <ScrollView horizontal={true}>
           <TouchableOpacity
+            style={styles.greenFilterButton}
+            onPress={() => onFilterChange("All")}
+          >
+            <Text>All places</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
             style={styles.purpleFilterButton}
             onPress={() => onFilterChange("Favorites")}
           >
@@ -73,7 +85,7 @@ export default function AttractionBoxScreen({ navigation }) {
 
           <TouchableOpacity
             style={styles.blueFilterButton}
-            onPress={() => onFilterChange(defaultFilter)}
+            onPress={() => onFilterChange("Trondheim")}
           >
             <Text>Trondheim 101</Text>
           </TouchableOpacity>

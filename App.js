@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Dimensions, Platform, Text } from 'react-native';
+import { View, StyleSheet, Dimensions, Platform, Text, TouchableOpacity, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -20,7 +20,6 @@ const height = Dimensions.get('screen').height;
 const launchScreenColors = ['#C92332', '#FF6D8A', '#71DCFF', '#0078A3'];
 
 const MapsStack = createStackNavigator();
-//Make to have a visible tabbar on these screens
 function MapsStackScreen() {
 	return (
 		<MapsStack.Navigator screenOptions={{ headerShown: false }}>
@@ -31,7 +30,6 @@ function MapsStackScreen() {
 }
 
 const AttractionStack = createStackNavigator();
-
 function AttractionStackScreen() {
 	return (
 		<AttractionStack.Navigator screenOptions={{ headerShown: false }}>
@@ -48,8 +46,7 @@ function AttractionStackScreen() {
 }
 
 const Tab = createBottomTabNavigator();
-
-function HomeTabs() {
+function HomeTabs({ showAttractions, setShowAttractions }) {
 	return (
 		<Tab.Navigator initialRouteName='Home'>
 			<Tab.Screen
@@ -83,43 +80,35 @@ function HomeTabs() {
 					tabBarActiveTintColor: '#C92332',
 				}}
 			/>
-			{/* Map is bugged on Android */}
-			{Platform.OS === 'ios' || 'android' ? (
-				<Tab.Screen
-					name='Explore'
-					component={MapsStackScreen}
-					options={{
-						headerTitle: 'Explore Trondheim',
-						headerTintColor: '#FFF5F3',
-						headerStyle: {
-							backgroundColor: '#FF6D8A', // Pink
-						},
-						headerTitleAlign: 'center',
-						tabBarIcon: ({ color }) => (
-							<Entypo name='globe' size={23} color={color} />
-						),
-						tabBarActiveTintColor: '#FF6D8A',
-					}}
-				/>
-			) : (
-				<Tab.Screen
-					name='Explore'
-					component={AttractionStackScreen}
-					options={{
-						headerTitle: 'Explore Trondheim',
-						headerTintColor: '#FFF5F3', // White
-						headerStyle: {
-							backgroundColor: '#FF6D8A', // Pink
-						},
-						headerTitleAlign: 'center',
-						tabBarIcon: ({ color }) => (
-							<Entypo name='globe' size={23} color={color} />
-						),
-						tabBarActiveTintColor: '#FF6D8A',
-					}}
-				/>
-			)}
-
+			<Tab.Screen
+				name='Explore'
+				component={showAttractions ? AttractionStackScreen : MapsStackScreen}
+				options={{
+					headerTitle: 'Explore Trondheim',
+					headerTintColor: '#FFF5F3',
+					headerStyle: {
+						backgroundColor: '#FF6D8A', // Pink
+					},
+					tabBarIcon: ({ color }) => (
+						<Entypo name='globe' size={23} color={color} />
+					),
+					tabBarActiveTintColor: '#FF6D8A',
+					headerRight: () => (
+						<TouchableOpacity
+							onPress={() => setShowAttractions(!showAttractions)} // Toggle the state
+							style={{
+								marginRight: 10,
+								backgroundColor: 'transparent', // Make the button transparent
+							}}
+						>
+							<Image
+								source={showAttractions ? require('./src/assets/ExploreTrondheim/mapicon.png') : require('./src/assets/ExploreTrondheim/listicon.png')}
+								style={{ width: 24, height: 24 }} // Adjust size as necessary
+							/>
+						</TouchableOpacity>
+					),
+				}}
+			/>
 			<Tab.Screen
 				name='Information'
 				component={FAQScreen}
@@ -139,15 +128,16 @@ function HomeTabs() {
 	);
 }
 
-//creates the main stack navigation for the app and removes the default header
 const MainStack = createStackNavigator();
-//get white default backgroundcolor on all pages
-
 function App() {
+	const [showAttractions, setShowAttractions] = useState(false); // Default to showing MapsStackScreen
+
 	return (
 		<NavigationContainer>
 			<MainStack.Navigator screenOptions={{ headerShown: false }}>
-				<MainStack.Screen name='HomeTabs' component={HomeTabs} />
+				<MainStack.Screen name='HomeTabs'>
+					{() => <HomeTabs showAttractions={showAttractions} setShowAttractions={setShowAttractions} />}
+				</MainStack.Screen>
 				<MainStack.Screen name='Info' component={InformationScreen} />
 				<MainStack.Screen name='Show' component={EventScreen} />
 			</MainStack.Navigator>
@@ -156,9 +146,7 @@ function App() {
 }
 
 function SplashScreen(props) {
-	// Get screen width and height
 	const [fontLoaded, setFontLoaded] = useState(false);
-
 	useEffect(() => {
 		async function loadFont() {
 			await Font.loadAsync({
@@ -166,30 +154,23 @@ function SplashScreen(props) {
 			});
 			setFontLoaded(true);
 		}
-
 		loadFont();
-
 		const timer = setTimeout(() => {
-			props.setLoading(!props.loading); // Assuming you're controlling some loading state here
-		}, 2000); // Adjust the timeout as necessary
-		return () => clearTimeout(timer); // Cleanup the timer
+			props.setLoading(!props.loading); 
+		}, 2000);
+		return () => clearTimeout(timer);
 	}, []);
 
 	return (
 		<View
 			style={{
-				flex: 1, // Takes up the full height of the screen
-				justifyContent: 'center', // Centers the image vertically
-				alignItems: 'center', // Centers the image horizontally
-				backgroundColor:
-					launchScreenColors[
-						Math.floor(Math.random() * launchScreenColors.length)
-					],
+				flex: 1,
+				justifyContent: 'center',
+				alignItems: 'center',
+				backgroundColor: launchScreenColors[Math.floor(Math.random() * launchScreenColors.length)],
 			}}
 		>
-			<Text
-				style={[fontstyles.text, fontLoaded ? fontstyles.customFont : null]}
-			>
+			<Text style={[fontstyles.text, fontLoaded ? fontstyles.customFont : null]}>
 				isfit25{'\n'}power
 			</Text>
 		</View>
@@ -198,30 +179,20 @@ function SplashScreen(props) {
 
 const fontstyles = StyleSheet.create({
 	text: {
-		fontSize: 64 + 32,
+		fontSize: 96,
 		color: Math.random() > 0.5 ? '#141414' : '#FFF5F3',
 	},
-
 	customFont: {
-		fontFamily: 'HVDRowdyRegular', // The custom isfit25 Power font
+		fontFamily: 'HVDRowdyRegular',
 	},
 });
 
 export default () => {
 	const [loading, setLoading] = useState(true);
-
 	if (loading) {
 		return <SplashScreen loading={loading} setLoading={setLoading} />;
 	} else {
-		return (
-			<NavigationContainer>
-				<MainStack.Navigator screenOptions={{ headerShown: false }}>
-					<MainStack.Screen name='HomeTabs' component={HomeTabs} />
-					<MainStack.Screen name='Info' component={InformationScreen} />
-					<MainStack.Screen name='Show' component={EventScreen} />
-				</MainStack.Navigator>
-			</NavigationContainer>
-		);
+		return <App />;
 	}
 };
 
