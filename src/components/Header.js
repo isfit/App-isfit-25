@@ -19,7 +19,7 @@ const Header = (props) => {
 			</View>
 			<TouchableOpacity onPress={props.onPress}>
 				<View style={styles.largeTouch}>
-					<Feather name='arrow-left' size={40} color='#37894e' />
+					<Feather name='arrow-left' size={40} color='#ffff' />
 				</View>
 			</TouchableOpacity>
 		</View>
