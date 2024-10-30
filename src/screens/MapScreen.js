@@ -6,7 +6,6 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
-  Image,
 } from "react-native";
 import { attractionMarkers } from "../assets/attractionMarkers";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -14,23 +13,20 @@ import MapWithMarkers from "../components/MapWithMarkers";
 
 const width = Dimensions.get("screen").width;
 const height = Dimensions.get("screen").height;
-const defaultFilter = "Trondheim";
 
 export default class MapScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
       data: props.data,
-      activeFilter: defaultFilter,
-      activeMarkers: attractionMarkers.filter(
-        (x) => x.filterKey == defaultFilter
-      ),
+      activeFilter: "All",
+      activeMarkers: attractionMarkers,
     };
   }
 
   onFilterChange(filter) {
-    var filteredMarkersList = [];
-    if (filter == "Favorites") {
+    let filteredMarkersList = [];
+    if (filter === "Favorites") {
       getStoredFavorites().then((storedFavorites) => {
         filteredMarkersList = attractionMarkers.filter((x) =>
           storedFavorites.includes(x.key)
@@ -40,7 +36,7 @@ export default class MapScreen extends Component {
           activeMarkers: filteredMarkersList,
         });
       });
-    } else if (filter == "All") {
+    } else if (filter === "All") {
       filteredMarkersList = attractionMarkers;
       this.setState({
         activeFilter: filter,
@@ -48,7 +44,7 @@ export default class MapScreen extends Component {
       });
     } else {
       filteredMarkersList = attractionMarkers.filter(
-        (x) => x.filterKey == filter
+        (x) => x.filterKey === filter
       );
       this.setState({
         activeFilter: filter,
@@ -79,7 +75,7 @@ export default class MapScreen extends Component {
   
             <TouchableOpacity
               style={styles.blueFilterButton}
-              onPress={() => this.onFilterChange(defaultFilter)}
+              onPress={() => this.onFilterChange("Trondheim")}
             >
               <Text>Trondheim 101</Text>
             </TouchableOpacity>
@@ -159,16 +155,11 @@ export default class MapScreen extends Component {
             style={styles.iconContainer}
             onPress={() => this.onFilterChange("Museums")}
           >
-            <Image
-              source={require('./listicon.png')}
-              style={styles.iconImage}
-            />
           </TouchableOpacity>
         </View>
       </View>
     );
   }
-  
 }
 
 // TODO: refactor to be used to store favorite markers and events
