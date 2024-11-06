@@ -62,7 +62,7 @@ const EventBox = (props) => {
 
 					<View style={styles.icon}>
 						<MaterialIcons
-							name={'keyboard-arrow-right'}
+							name={'open-in-new'}
 							size={30}
 							color='#E63872'
 						/>
