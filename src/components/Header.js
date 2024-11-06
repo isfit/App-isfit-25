@@ -15,7 +15,7 @@ const Header = (props) => {
 	return (
 		<View style={styles.ArticleHeader}>
 			<View style={styles.textCentering}>
-				<Text style={styles.articleText}>Power</Text>
+				<Text style={styles.articleText}>POWER</Text>
 			</View>
 			<TouchableOpacity onPress={props.onPress}>
 				<View style={styles.largeTouch}>
