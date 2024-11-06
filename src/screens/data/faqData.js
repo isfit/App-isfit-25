@@ -109,11 +109,16 @@ export const faqQuestions = [
       title: "What do I do if I want to change host? ",
       data: "You can contact headofhost@isfit.no or call Trafoen"
     }
-  ]}, {
+  ]}, 
+  {
     key: 7,
-    category: "Emergency",
+    category: "Contact",
     questions: [{
-      title: "Info",
-      data: "If there is an emergency you should call: \n113 for ambulance \n112 for police \n110 for fire department \n116 117 for Emergency Room \nTrafoen: +47 458 53 167\n\nIf you have and emergency, please contact Trafoen as well! \nThe hospital in Trondheim is located across the road from Studentersamfundet. If you have a smaller incident, contact the Emergency Room BEFORE you go there. The Emergency Room is located at the hospital and they don't have drop-in service. If you are in need of a bandaid or something similar, go to Trafoen."
+      title: "General Information",
+      data: "Trafoen: +47 458 53 167\n\nFor questions about being a participant in ISFiT, please email question@isfit.no."
+    },
+    {
+      title: "Emergency",
+      data: "If there is an emergency you should call: \n113 for ambulance \n112 for police \n110 for fire department \n116 117 for Emergency Room \n\nTrafoen: +47 458 53 167\n\nIf you have and emergency, please contact Trafoen as well! \nThe hospital in Trondheim is located across the road from Studentersamfundet. If you have a smaller incident, contact the Emergency Room BEFORE you go there. The Emergency Room is located at the hospital and they don't have drop-in service. If you are in need of a bandaid or something similar, go to Trafoen."
     }
 ]}]
