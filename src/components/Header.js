@@ -15,7 +15,7 @@ const Header = (props) => {
 	return (
 		<View style={styles.ArticleHeader}>
 			<View style={styles.textCentering}>
-				<Text style={styles.articleText}>POLARIZATION</Text>
+				<Text style={styles.articleText}>Power</Text>
 			</View>
 			<TouchableOpacity onPress={props.onPress}>
 				<View style={styles.largeTouch}>
@@ -57,7 +57,6 @@ const styles = StyleSheet.create({
 		paddingRight: width / 3, //nice size for touchable back button
 		paddingTop: height * 0.05,
 	},
-
 });
 
 export default Header;
