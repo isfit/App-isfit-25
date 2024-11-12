@@ -30,9 +30,6 @@ export default function EventScreen() {
 					});
 				});
 			});
-		console.log(data.length);
-
-		//data.push(...staticEvents); Fake events. Probably used for known ISFiT23 Events.
 
 		const newDateArray = [];
 		data.map((item, index) => {
