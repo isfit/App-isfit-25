@@ -193,13 +193,13 @@ export const attractionMarkers = [
 		filterKey: 'Help',
 		title: 'Emergency Room',
 		shortDescription:
-			'Open 24 hours a day. Contact number: +4773969580. Call 113 in case of emergency.',
+			'Open 24 hours a day. Contact number: +47 73969580. Call 113 in case of emergency.',
 		pressForMoreInfo: 'Press for more info!',
 		photographer: 'From: NidarosAvis',
 		info: 'MarkerInfo',
 		logo: require('../assets/ExploreTrondheim/Help/EmergencyRoom.jpg'),
 		information:
-			'The Health center treats non-critical emergencies. Available doctors all day and night. Contact number: +4773969580. In case of serious emergency call 113.',
+			'The Health center treats non-critical emergencies. Available doctors all day and night.\nContact number: +47 739 69 580.\nIn case of serious emergency call 113.',
 		latLong: {
 			latitude: 63.421869100135986,
 			longitude: 10.392008299999997,
@@ -319,22 +319,6 @@ export const attractionMarkers = [
 		},
 	},
 	{
-		key: 19,
-		filterKey: 'Cafes',
-		title: 'Café Ni Muser',
-		shortDescription: 'Lots of space to study with a buffet',
-		pressForMoreInfo: 'Press for more info!',
-		photographer: 'From: Café Ni Muser Instagram',
-		info: 'MarkerInfo',
-		logo: require('../assets/ExploreTrondheim/Cafes/Cafe_Ni_Muser.png'),
-		information:
-			'This café is located close to Nidarosomen, in a classy building with high ceilings. They have an à la carte menu, and also a lot of different buffets. Every weekday there is lunch buffet from 11 am to 3 pm, soup buffet every day from 3 pm to 9 pm. There is also Saturday buffet from 12 pm to 4 pm and a cake buffet on Sundays from 12 pm to 3 pm. They have really great coffee and some of the best cakes in the city. Opening hours are 11 am to 9 pm every day.',
-		latLong: {
-			latitude: 63.42754181547936,
-			longitude: 10.393528784400365,
-		},
-	},
-	{
 		key: 20,
 		filterKey: 'Cafes',
 		title: 'Sellanraa',
@@ -396,6 +380,22 @@ export const attractionMarkers = [
 		latLong: {
 			latitude: 63.434480965916066,
 			longitude: 10.402212754589616,
+		},
+	},
+	{
+		key: 85,
+		filterKey: 'Eat',
+		title: 'Pincho Nation',
+		shortDescription: 'Food and drinks (circus theme)',
+		pressForMoreInfo: 'Press for more info!',
+		photographer: 'Håkon Tidermann/Pincho Nation AB',
+		info: 'MarkerInfo',
+		logo: require('../assets/ExploreTrondheim/Eat/Pincho-collage.jpg'),
+		information:
+			'WE BELIEVE IN MAGIC, DAZZLING DRINKS & DELICIOUS DISHES\n\nEnjoy entrées from all the cuisines of the world and heaps of colourful drinks, all in a really wonderful atmosphere. Bring your friends, co-workers or family - for moments big and small, you are always welcome here.\n\nPincho Nation isn`t just any restaurant, we`re the worlds first app restaurant. With the app you can make reservations and explore the menu full of delicious entrées and exciting drinks. Here you will place all your orders and, if you like, pay the bill at the end of your evening. Join our members club The Society and collect bonus points for future visits.',
+		latLong: {
+			latitude: 63.43272119237862,
+			longitude: 10.406976253299266,
 		},
 	},
 	{
@@ -463,6 +463,22 @@ export const attractionMarkers = [
 		},
 	},
 	{
+		key: 32,
+		filterKey: 'Eat',
+		title: 'Egon Tyholt Tårnet',
+		shortDescription: 'Food and drinks with an AMAZING view over the city!',
+		pressForMoreInfo: 'Press for more info!',
+		photographer: 'From: Egon.no',
+		info: 'MarkerInfo',
+		logo: require('../assets/ExploreTrondheim/Eat/egon.jpg'),
+		information:
+			'EGON Tårnet invites you to take part in a dining experience that literally takes you to new heights. Our restaurant extends over two floors, roughly 75 meters above the ground. Not only that, the restaurant rotates 360° around in an hour. This means that you have the opportunity to see the whole of Trondheim with a visit to us. If you`re brave enough, you might also dare to lean against the window.',
+		latLong: {
+			latitude: 63.42252706042295,
+			longitude: 10.43205564375919,
+		},
+	},
+	{
 		key: 28,
 		filterKey: 'Eat',
 		title: 'Una',
@@ -527,35 +543,19 @@ export const attractionMarkers = [
 		},
 	},
 	{
-		key: 32,
-		filterKey: 'Eat',
-		title: 'Indian Curry & Nepali Restaurant',
-		shortDescription: 'Authentic Indian and Nepali',
-		pressForMoreInfo: 'Press for more info!',
-		photographer: 'From: alexlawi on Happy Cow',
-		info: 'MarkerInfo',
-		logo: require('../assets/ExploreTrondheim/Eat/IndianCurryandNepalirestaurant.jpeg'),
-		information:
-			"This restaurant serves authentic Indian and Nepali food. The food is excellent and also very affordable. The restaurant is located a little outside of Trondheim's city center, but if you have been for a walk at Skansen or Ila you can stop by the restaurant on your way home. We do however recommend to order takeaway as the restaurant´s premises are not the coziest. Opening hours are 3 pm to 10 pm Monday and Wednesday to Friday and 12 pm to 10 pm Saturday and Sunday",
-		latLong: {
-			latitude: 63.42939777310504,
-			longitude: 10.36466150132522,
-		},
-	},
-	{
 		key: 33,
 		filterKey: 'Eat',
-		title: 'Edoramen',
+		title: 'Koie Ramen',
 		shortDescription: 'Ramen, ramen and ramen',
 		pressForMoreInfo: 'Press for more info!',
-		photographer: 'From: Visit Trondheim',
+		photographer: 'From: koieramen.no',
 		info: 'MarkerInfo',
-		logo: require('../assets/ExploreTrondheim/Eat/Edoramen.jpeg'),
+		logo: require('../assets/ExploreTrondheim/Eat/KoieRamen.png'),
 		information:
-			'Edoramen combines Japanese tradition with Norwegian ingredients in a new and stylish restaurant. The restaurant is situated right outside the city center towards Lade, but it is easy to get there by foot or bus, with the closest bus stop being Ladeveien. Opening hours are 4 pm to 9 pm Wednesday to Sunday.',
+			'"Two of us popped in here on a weekday night last month. We had read previous reviews and had high hopes that it would be good. It was fairly busy but the food came out at a steady pace. We had chosen Shoyu and Tonkotsu and they were both outstanding. Definitely some of the best ramen we have had anywhere." - Tripadvisor\nOpening hours are 11(12) am to 10 pm Monday to Saturday (Sunday).',
 		latLong: {
-			latitude: 63.442319938662784,
-			longitude: 10.43654132883602,
+			latitude: 63.43267336718202,
+			longitude: 10.399379857701339,
 		},
 	},
 	{
@@ -574,55 +574,6 @@ export const attractionMarkers = [
 			longitude: 10.395717257672043,
 		},
 	},
-	{
-		key: 35,
-		filterKey: 'Eat',
-		title: 'Selma',
-		shortDescription: 'Organic, delicious pizza',
-		pressForMoreInfo: 'Press for more info!',
-		photographer: 'From: Selmas instagram ',
-		info: 'MarkerInfo',
-		logo: require('../assets/ExploreTrondheim/Eat/Selmapizza.png'),
-		information:
-			'Selma is located on Solsiden, one of the most known places in Trondheim. The pizza is delicious and the toppings are fun and a bit different, so this is the place to go if you want to try a twist to Italian pizzas, although they do serve other dishes as well. Opening hours are 12 pm to 11 pm Monday and Tuesday, 12 pm to 1 am Wednesday to Saturday and 1 pm to 10 pm Sundays. Menu: https://selmabar.no/',
-		latLong: {
-			latitude: 63.43496675254836,
-			longitude: 10.412003584655917,
-		},
-	},
-	{
-		key: 36,
-		filterKey: 'Eat',
-		title: 'Byhaven Kafe',
-		shortDescription: 'Oldfashioned Norwegian supper',
-		pressForMoreInfo: 'Press for more info!',
-		photographer: 'From: Selmas instagram ',
-		info: 'MarkerInfo',
-		logo: require('../assets/ExploreTrondheim/Eat/byhavenkafe.jpeg'),
-		information:
-			"Byhaven Kafe is a cafe located on the third floor of the mall Byhaven. The cafe focuses on serving delicious 'husmannskost', which is traditional everyday dinners for Norwegians, but the meal of the day changes every week. If you are up for trying some traditional Norwegian supper, this is the place! Opening hours are the same as the mall, 9 am to 8 pm Monday to Friday and 10 am to 6 pm on Saturday.",
-		latLong: {
-			latitude: 63.43409983655455,
-			longitude: 10.39650464603225,
-		},
-	},
-	{
-		key: 85,
-		filterKey: 'Eat',
-		title: 'Pincho Nation',
-		shortDescription: 'Food and drinks (circus theme)',
-		pressForMoreInfo: 'Press for more info!',
-		photographer: 'Håkon Tidermann/Pincho Nation AB',
-		info: 'MarkerInfo',
-		logo: require('../assets/ExploreTrondheim/Eat/Pincho-collage.jpg'),
-		information:
-			'WE BELIEVE IN MAGIC, DAZZLING DRINKS & DELICIOUS DISHES\n\nEnjoy entrées from all the cuisines of the world and heaps of colourful drinks, all in a really wonderful atmosphere. Bring your friends, co-workers or family - for moments big and small, you are always welcome here.\n\nPincho Nation isn`t just any restaurant, we`re the worlds first app restaurant. With the app you can make reservations and explore the menu full of delicious entrées and exciting drinks. Here you will place all your orders and, if you like, pay the bill at the end of your evening. Join our members club The Society and collect bonus points for future visits.',
-		latLong: {
-			latitude: 63.43272119237862,
-			longitude: 10.406976253299266,
-		},
-	},
-
 	{
 		key: 37,
 		filterKey: 'Drink',
