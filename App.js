@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Dimensions, Platform, Text, TouchableOpacity, Image } from 'react-native';
+import {
+	View,
+	StyleSheet,
+	Dimensions,
+	Text,
+	TouchableOpacity,
+	Image,
+} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -102,7 +109,11 @@ function HomeTabs({ showAttractions, setShowAttractions }) {
 							}}
 						>
 							<Image
-								source={showAttractions ? require('./src/assets/ExploreTrondheim/mapicon.png') : require('./src/assets/ExploreTrondheim/listicon.png')}
+								source={
+									showAttractions
+										? require('./src/assets/ExploreTrondheim/mapicon.png')
+										: require('./src/assets/ExploreTrondheim/listicon.png')
+								}
 								style={{ width: 24, height: 24 }} // Adjust size as necessary
 							/>
 						</TouchableOpacity>
@@ -136,7 +147,12 @@ function App() {
 		<NavigationContainer>
 			<MainStack.Navigator screenOptions={{ headerShown: false }}>
 				<MainStack.Screen name='HomeTabs'>
-					{() => <HomeTabs showAttractions={showAttractions} setShowAttractions={setShowAttractions} />}
+					{() => (
+						<HomeTabs
+							showAttractions={showAttractions}
+							setShowAttractions={setShowAttractions}
+						/>
+					)}
 				</MainStack.Screen>
 				<MainStack.Screen name='Info' component={InformationScreen} />
 				<MainStack.Screen name='Show' component={EventScreen} />
@@ -156,7 +172,7 @@ function SplashScreen(props) {
 		}
 		loadFont();
 		const timer = setTimeout(() => {
-			props.setLoading(!props.loading); 
+			props.setLoading(!props.loading);
 		}, 2000);
 		return () => clearTimeout(timer);
 	}, []);
@@ -167,10 +183,15 @@ function SplashScreen(props) {
 				flex: 1,
 				justifyContent: 'center',
 				alignItems: 'center',
-				backgroundColor: launchScreenColors[Math.floor(Math.random() * launchScreenColors.length)],
+				backgroundColor:
+					launchScreenColors[
+						Math.floor(Math.random() * launchScreenColors.length)
+					],
 			}}
 		>
-			<Text style={[fontstyles.text, fontLoaded ? fontstyles.customFont : null]}>
+			<Text
+				style={[fontstyles.text, fontLoaded ? fontstyles.customFont : null]}
+			>
 				isfit25{'\n'}power
 			</Text>
 		</View>

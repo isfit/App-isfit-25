@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { View, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import ArticleBox from '../components/ArticleBox';
 import { themeInfo } from '../assets/themeInfo';
 
