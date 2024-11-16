@@ -106,7 +106,7 @@ const MarkerInfo = ({ title, bilde, information, photographer, itemId }) => {
 					<FontAwesome
 						name={isFavorite ? 'heart' : 'heart-o'}
 						size={25}
-						color='#37894e'
+						color='#FF6D8A'
 					/>
 				</TouchableOpacity>
 			</View>
