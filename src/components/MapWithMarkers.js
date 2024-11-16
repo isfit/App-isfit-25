@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Dimensions, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
-import { FontAwesome, FontAwesome5 } from '@expo/vector-icons'; // Using @expo/vector-icons
+import * as Animatable from 'react-native-animatable';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'; // Using FontAwesomeIcon
 import {
 	faUtensils,
@@ -17,6 +17,7 @@ import {
 	faMonument,
 	faPersonBiking,
 	faLocationDot,
+	faCircleUser,
 } from '@fortawesome/free-solid-svg-icons'; // Import desired icons
 
 const width = Dimensions.get('screen').width;
@@ -131,7 +132,13 @@ export default function MapWithMarkers({ markersArray }) {
 					title='Your Location'
 					description='This is where you are.'
 				>
-					<FontAwesome name='map-marker' size={30} color='#116bff' />
+					<Animatable.View
+						animation='pulse'
+						easing='ease-out'
+						iterationCount='infinite'
+					>
+						<FontAwesomeIcon icon={faCircleUser} size={30} color='#FF6D8A' />
+					</Animatable.View>
 				</Marker>
 			)}
 
