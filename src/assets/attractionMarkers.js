@@ -189,6 +189,22 @@ export const attractionMarkers = [
 		},
 	},
 	{
+		key: 100,
+		filterKey: 'Trondheim',
+		title: 'Lerkendal - home to RBK',
+		shortDescription: "Trondheim's football team RBK stadium",
+		pressForMoreInfo: 'Press for more info!',
+		photographer: 'From: aftenposten.no',
+		info: 'MarkerInfo',
+		logo: require('../assets/ExploreTrondheim/Trondheim101/lerkendal.png'),
+		information:
+			'Lerkendal Stadion is an all-seater football stadium located at Lerkendal in Trondheim, Norway. The home ground of the Eliteserien side Rosenborg BK, it has a capacity for 21,405 spectators, making it the second-largest football stadium in the country.',
+		latLong: {
+			latitude: 63.41240228199961,
+			longitude: 10.403691040162851,
+		},
+	},
+	{
 		key: 11,
 		filterKey: 'Help',
 		title: 'Emergency Room',
@@ -460,6 +476,23 @@ export const attractionMarkers = [
 		latLong: {
 			latitude: 63.422688712938424,
 			longitude: 10.395297130192889,
+		},
+	},
+	{
+		key: 270,
+		filterKey: 'Eat',
+		title: 'Robata',
+		shortDescription:
+			'Welcome to Robata Asian Fusion where food is art and taste is passion!',
+		pressForMoreInfo: 'Press for more info!',
+		photographer: 'From: robata.no',
+		info: 'MarkerInfo',
+		logo: require('../assets/ExploreTrondheim/Eat/robata.png'),
+		information:
+			'At Robata Asian Fusion, we take you on a culinary journey through Asia, where we combine authentic flavors with a modern twist. The menu is diverse and exciting. Of course we serve sushi of the highest "Sushi Bar" quality, but our skilled chefs also prepare many exciting dishes on our Japanese charcoal grill. In addition, we have authentic dishes such as crispy duck, dim sum and ramen. We take pride in using fresh, seasonal ingredients of the best quality to create taste experiences that delight. Whether you are looking for a romantic dinner for two, a pleasant evening with friends or a festive occasion, you can count on Robata Asian Fusion to deliver an unforgettable dining experience. We invite you to come and experience our unique fusion of Asian flavors and modern culinary creativity. Visit us at the end Ravnkloa , Trondheim, and let us take you on a gastronomic journey that will leave you full, satisfied and welcoming you back.',
+		latLong: {
+			latitude: 63.43377452403517,
+			longitude: 10.39371546588982,
 		},
 	},
 	{
@@ -1070,6 +1103,37 @@ export const attractionMarkers = [
 			longitude: 10.407192642977938,
 		},
 	},
+	{
+		key: 160,
+		filterKey: 'Shopping',
+		title: 'Trondheim Torg Shopping Center',
+		shortDescription: 'Shopping center',
+		pressForMoreInfo: 'Press for more info!',
+		photographer: 'trondheimtorg.no',
+		info: 'MarkerInfo',
+		logo: require('../assets/ExploreTrondheim/Shopping/trondheimTorgCenter.png'),
+		information:
+			'Trondheim Torg is a cozy shopping center located in the heart of Midtbyen. Here, you’ll find more than 65 shops and eateries where people enjoy meeting—whether to shop, dine, or simply have a chat. If you’re in Trondheim, Trondheim Torg is always nearby.',
+		latLong: {
+			latitude: 63.430100876698994,
+			longitude: 10.393301040395617,
+		},
+	},
+	// {
+	// 	key: 160,
+	// 	filterKey: 'Shopping',
+	// 	title: '',
+	// 	shortDescription: '',
+	// 	pressForMoreInfo: 'Press for more info!',
+	// 	photographer: '',
+	// 	info: 'MarkerInfo',
+	// 	logo: require(''),
+	// 	information: '',
+	// 		latLong: {
+	// 		latitude: 63.431792747404714,
+	// 		longitude: 10.407192642977938,
+	// 	},
+	// },
 	{
 		key: 68,
 		filterKey: 'Museums',
