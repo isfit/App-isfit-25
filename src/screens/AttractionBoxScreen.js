@@ -11,57 +11,84 @@ import { attractionMarkers } from '../assets/attractionMarkers';
 import AttractionMarkerBox from '../components/AttractionMarkerBox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const width = Dimensions.get('screen').width;
-const height = Dimensions.get('screen').height;
-const defaultFilter = 'All'; // Changed default filter to "All"
+const defaultFilter = 'All'; // Default filter
 
 export default function AttractionBoxScreen({ navigation }) {
 	const scrollRef = useRef();
 
 	const [state, setState] = useState({
 		activeFilter: defaultFilter,
-		activeMarkers: attractionMarkers, // Set initial markers to all attractions
+		activeMarkers: attractionMarkers, // Default to all attractions
+		storedFavorites: [], // Initialize storedFavorites state
 	});
 
-	useEffect(() => {
-		navigation.addListener('focus', () => {
-			scrollRef.current?.scrollTo({
-				y: 0,
-				animated: true,
-			});
-		});
-	}, [navigation]);
-
-	const onFilterChange = (filter) => {
-		let filteredMarkersList = [];
-
-		if (filter === 'Favorites') {
-			getStoredFavorites().then((storedFavorites) => {
-				filteredMarkersList = attractionMarkers.filter((x) =>
-					storedFavorites.includes(x.key)
-				);
-				setState({
-					activeFilter: filter,
-					activeMarkers: filteredMarkersList,
-				});
-			});
-		} else if (filter === 'All') {
-			filteredMarkersList = attractionMarkers; // Show all markers
-			setState({
-				activeFilter: filter,
-				activeMarkers: filteredMarkersList,
-			});
-		} else {
-			filteredMarkersList = attractionMarkers.filter(
-				(x) => x.filterKey === filter
-			);
-			// Close open marker
-			setState({
-				activeFilter: filter,
-				activeMarkers: filteredMarkersList,
-			});
+	// Fetch favorites from AsyncStorage
+	const updateFavorites = async () => {
+		try {
+			const storedFavorites = await getStoredFavorites();
+			if (state.activeFilter === 'Favorites') {
+				applyFavoriteFilter(storedFavorites); // Apply favorites filter
+			} else {
+				// Keep the current filter intact
+				onFilterChange(state.activeFilter);
+			}
+		} catch (error) {
+			console.error('Error updating favorites:', error);
 		}
 	};
+
+	// Apply the favorites filter
+	const applyFavoriteFilter = async (favorites) => {
+		try {
+			const storedFavorites = favorites || (await getStoredFavorites()); // Use passed or fetched favorites
+			const filteredMarkersList = attractionMarkers.filter((marker) =>
+				storedFavorites.includes(marker.key)
+			);
+			setState((prevState) => ({
+				...prevState,
+				activeFilter: 'Favorites',
+				activeMarkers: filteredMarkersList,
+			}));
+		} catch (error) {
+			console.error('Error applying favorite filter:', error);
+		}
+	};
+
+	// Apply the "All" filter
+	const applyAllFilter = () => {
+		setState((prevState) => ({
+			...prevState,
+			activeFilter: 'All',
+			activeMarkers: attractionMarkers,
+		}));
+	};
+
+	const onFilterChange = (filter) => {
+		if (filter === 'Favorites') {
+			applyFavoriteFilter(); // Fetch and apply favorites
+		} else if (filter === 'All') {
+			applyAllFilter();
+		} else {
+			const filteredMarkersList = attractionMarkers.filter(
+				(x) => x.filterKey === filter
+			);
+			setState((prevState) => ({
+				...prevState,
+				activeFilter: filter,
+				activeMarkers: filteredMarkersList,
+			}));
+		}
+	};
+
+	// useEffect to add focus listener for navigation
+	useEffect(() => {
+		const unsubscribe = navigation.addListener('focus', () => {
+			scrollRef.current?.scrollTo({ y: 0, animated: true });
+			updateFavorites(); // Update favorites on focus without overriding filters
+		});
+
+		return unsubscribe; // Cleanup listener on unmount
+	}, [navigation, state.activeFilter]); // Add `state.activeFilter` as a dependency
 
 	return (
 		<View style={{ flex: 1 }}>
@@ -153,47 +180,37 @@ export default function AttractionBoxScreen({ navigation }) {
 				</ScrollView>
 			</View>
 			<ScrollView ref={scrollRef}>
-				{state.activeMarkers.map((m, i) => {
-					return (
-						<AttractionMarkerBox
-							key={i}
-							testyTestId={i}
-							filterKey={m.filterKey}
-							title={m.title}
-							shortDescription={m.shortDescription}
-							logo={m.logo}
-							photographer={m.photographer}
-							info={m.info}
-							information={m.information}
-							latLong={m.latLong}
-						/>
-					);
-				})}
+				{state.activeMarkers.map((m, i) => (
+					<AttractionMarkerBox
+						key={i}
+						keyID={m.key}
+						filterKey={m.filterKey}
+						title={m.title}
+						shortDescription={m.shortDescription}
+						logo={m.logo}
+						photographer={m.photographer}
+						info={m.info}
+						information={m.information}
+						latLong={m.latLong}
+					/>
+				))}
 			</ScrollView>
 		</View>
 	);
 }
 
+// Helper function to get stored favorites
 const getStoredFavorites = async () => {
 	try {
 		const jsonValue = await AsyncStorage.getItem('@ISFiTApp23_FavoriteMarkers');
 		return jsonValue != null ? JSON.parse(jsonValue) : [];
 	} catch (e) {
-		console.log(e);
+		console.error('Error fetching favorites:', e);
 		return [];
 	}
 };
 
 const styles = StyleSheet.create({
-	mapStyle: {
-		width: width,
-		height: height,
-	},
-	image: {
-		resizeMode: 'contain',
-		width: width * 0.1,
-		height: width * 0.1,
-	},
 	redFilterButton: {
 		alignSelf: 'flex-start',
 		elevation: 4,

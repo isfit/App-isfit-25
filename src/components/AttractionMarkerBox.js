@@ -38,8 +38,8 @@ const AttractionMarkerBox = (props) => {
 	return (
 		<TouchableOpacity
 			onPress={() =>
-				navigation.navigate('AttractionBoxInfoScreen', {
-					itemId: props.testyTestId,
+				navigation.navigate('MarkerInfoScreen', {
+					itemId: props.keyID,
 					itemTitle: props.title,
 					itemPicture: props.logo,
 					itemInformation: props.information,

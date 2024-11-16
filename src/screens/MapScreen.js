@@ -93,7 +93,7 @@ export default class MapScreen extends Component {
 			<View style={{ flex: 1 }}>
 				{/* Filter Buttons Section */}
 				<View style={{ backgroundColor: '#D8BFD8', paddingVertical: 4 }}>
-					<ScrollView horizontal={true}>
+					<ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
 						<TouchableOpacity
 							style={styles.greenFilterButton}
 							onPress={() => this.onFilterChange('All')}
