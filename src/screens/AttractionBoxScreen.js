@@ -13,6 +13,81 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const defaultFilter = 'All'; // Default filter
 
+const filters = [
+	{
+		key: 'All',
+		label: 'All places',
+		backgroundColor: '#56BC72',
+		borderColor: '#37894E',
+	},
+	{
+		key: 'Favorites',
+		label: 'Favorites',
+		backgroundColor: '#8A2BE2', // Unique purple
+		borderColor: '#5A189A',
+	},
+	{
+		key: 'Trondheim',
+		label: 'Trondheim 101',
+		backgroundColor: '#7CD1ED',
+		borderColor: '#0197CC',
+	},
+	{
+		key: 'Help',
+		label: 'Help',
+		backgroundColor: '#FF4C4C', // Strong red for "Help"
+		borderColor: '#A70000',
+	},
+	{
+		key: 'Cafes',
+		label: 'Cafés to relax in',
+		backgroundColor: '#D2691E', // Brown-orange
+		borderColor: '#A0522D',
+	},
+	{
+		key: 'Eat',
+		label: 'Places to eat',
+		backgroundColor: '#FFA500', // Bright orange
+		borderColor: '#CC8400',
+	},
+	{
+		key: 'Drink',
+		label: 'Places to drink',
+		backgroundColor: '#FFD700', // Golden yellow
+		borderColor: '#CCAC00',
+	},
+	{
+		key: 'FreshAir',
+		label: 'Fresh air',
+		backgroundColor: '#87CEEB', // Light blue
+		borderColor: '#4682B4',
+	},
+	{
+		key: 'Activities',
+		label: 'Activity for the body and soul',
+		backgroundColor: '#32CD32', // Lime green
+		borderColor: '#228B22',
+	},
+	{
+		key: 'Shopping',
+		label: 'Boutiques & Vintage shopping',
+		backgroundColor: '#FF69B4', // Hot pink
+		borderColor: '#C71585',
+	},
+	{
+		key: 'Museums',
+		label: 'Museums',
+		backgroundColor: '#9370DB', // Medium purple
+		borderColor: '#6A5ACD',
+	},
+	{
+		key: 'Party',
+		label: 'Party places',
+		backgroundColor: '#FF6347', // Tomato red
+		borderColor: '#FF4500',
+	},
+];
+
 export default function AttractionBoxScreen({ navigation }) {
 	const scrollRef = useRef();
 
@@ -93,90 +168,22 @@ export default function AttractionBoxScreen({ navigation }) {
 	return (
 		<View style={{ flex: 1 }}>
 			<View style={{ backgroundColor: '#FFF', paddingVertical: 4 }}>
-				<ScrollView horizontal={true}>
-					<TouchableOpacity
-						style={styles.greenFilterButton}
-						onPress={() => onFilterChange('All')}
-					>
-						<Text>All places</Text>
-					</TouchableOpacity>
-
-					<TouchableOpacity
-						style={styles.purpleFilterButton}
-						onPress={() => onFilterChange('Favorites')}
-					>
-						<Text>Favorites</Text>
-					</TouchableOpacity>
-
-					<TouchableOpacity
-						style={styles.blueFilterButton}
-						onPress={() => onFilterChange('Trondheim')}
-					>
-						<Text>Trondheim 101</Text>
-					</TouchableOpacity>
-
-					<TouchableOpacity
-						style={styles.redFilterButton}
-						onPress={() => onFilterChange('Help')}
-					>
-						<Text>Help</Text>
-					</TouchableOpacity>
-
-					<TouchableOpacity
-						style={styles.orangeFilterButton}
-						onPress={() => onFilterChange('Cafes')}
-					>
-						<Text>Cafés to relax in</Text>
-					</TouchableOpacity>
-
-					<TouchableOpacity
-						style={styles.orangeFilterButton}
-						onPress={() => onFilterChange('Eat')}
-					>
-						<Text>Places to eat</Text>
-					</TouchableOpacity>
-
-					<TouchableOpacity
-						style={styles.orangeFilterButton}
-						onPress={() => onFilterChange('Drink')}
-					>
-						<Text>Places to drink</Text>
-					</TouchableOpacity>
-
-					<TouchableOpacity
-						style={styles.greenFilterButton}
-						onPress={() => onFilterChange('FreshAir')}
-					>
-						<Text>Fresh air</Text>
-					</TouchableOpacity>
-
-					<TouchableOpacity
-						style={styles.greenFilterButton}
-						onPress={() => onFilterChange('Activities')}
-					>
-						<Text>Activity for the body and soul</Text>
-					</TouchableOpacity>
-
-					<TouchableOpacity
-						style={styles.pinkFilterButton}
-						onPress={() => onFilterChange('Shopping')}
-					>
-						<Text>Boutiques & Vintage shopping</Text>
-					</TouchableOpacity>
-
-					<TouchableOpacity
-						style={styles.purpleFilterButton}
-						onPress={() => onFilterChange('Museums')}
-					>
-						<Text>Museums</Text>
-					</TouchableOpacity>
-
-					<TouchableOpacity
-						style={styles.yellowFilterButton}
-						onPress={() => onFilterChange('Party')}
-					>
-						<Text>Party places</Text>
-					</TouchableOpacity>
+				<ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+					{filters.map((filter) => (
+						<TouchableOpacity
+							key={filter.key}
+							style={[
+								styles.button, // Base button styles
+								{
+									backgroundColor: filter.backgroundColor,
+									borderColor: filter.borderColor,
+								},
+							]}
+							onPress={() => onFilterChange(filter.key)}
+						>
+							<Text>{filter.label}</Text>
+						</TouchableOpacity>
+					))}
 				</ScrollView>
 			</View>
 			<ScrollView ref={scrollRef}>
@@ -211,77 +218,9 @@ const getStoredFavorites = async () => {
 };
 
 const styles = StyleSheet.create({
-	redFilterButton: {
+	button: {
 		alignSelf: 'flex-start',
 		elevation: 4,
-		backgroundColor: '#FF7B7B',
-		borderColor: '#A70000',
-		borderRadius: 18,
-		marginHorizontal: 2,
-		borderWidth: 2,
-		paddingVertical: 11,
-		paddingHorizontal: 15,
-	},
-	blueFilterButton: {
-		alignSelf: 'flex-start',
-		elevation: 4,
-		backgroundColor: '#7CD1ED',
-		borderColor: '#0197CC',
-		borderRadius: 18,
-		marginHorizontal: 2,
-		borderWidth: 2,
-		paddingVertical: 11,
-		paddingHorizontal: 15,
-	},
-	orangeFilterButton: {
-		alignSelf: 'flex-start',
-		elevation: 4,
-		backgroundColor: '#FFAD33',
-		borderColor: '#F78D1F',
-		borderRadius: 18,
-		marginHorizontal: 2,
-		borderWidth: 2,
-		paddingVertical: 11,
-		paddingHorizontal: 15,
-	},
-	greenFilterButton: {
-		alignSelf: 'flex-start',
-		elevation: 4,
-		backgroundColor: '#56BC72',
-		borderColor: '#37894E',
-		borderRadius: 18,
-		marginHorizontal: 2,
-		borderWidth: 2,
-		paddingVertical: 11,
-		paddingHorizontal: 15,
-	},
-	purpleFilterButton: {
-		alignSelf: 'flex-start',
-		elevation: 4,
-		backgroundColor: '#B77FB9',
-		borderColor: '#99499C',
-		borderRadius: 18,
-		marginHorizontal: 2,
-		borderWidth: 2,
-		paddingVertical: 11,
-		paddingHorizontal: 15,
-	},
-	pinkFilterButton: {
-		alignSelf: 'flex-start',
-		elevation: 4,
-		backgroundColor: '#F087AA',
-		borderColor: '#E63872',
-		borderRadius: 18,
-		marginHorizontal: 2,
-		borderWidth: 2,
-		paddingVertical: 11,
-		paddingHorizontal: 15,
-	},
-	yellowFilterButton: {
-		alignSelf: 'flex-start',
-		elevation: 4,
-		backgroundColor: '#F0BD69',
-		borderColor: '#EAA22A',
 		borderRadius: 18,
 		marginHorizontal: 2,
 		borderWidth: 2,

@@ -1,9 +1,23 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { Image, StyleSheet, Dimensions, Alert } from 'react-native';
+import { StyleSheet, Dimensions, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
-import { useNavigation } from '@react-navigation/native';
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome, FontAwesome5 } from '@expo/vector-icons'; // Using @expo/vector-icons
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'; // Using FontAwesomeIcon
+import {
+	faUtensils,
+	faCoffee,
+	faHiking,
+	faLandmark,
+	faHeart,
+	faBasketShopping,
+	faWineGlass,
+	faGlassCheers,
+	faMonument,
+	faPersonBiking,
+	faLocationDot,
+} from '@fortawesome/free-solid-svg-icons'; // Import desired icons
 
 const width = Dimensions.get('screen').width;
 const height = Dimensions.get('screen').height;
@@ -16,50 +30,66 @@ const INITIAL_REGION = {
 	longitudeDelta: 0.05,
 };
 
+// Map filterKey to corresponding icons
+const getIconForFilter = (filterKey) => {
+	switch (filterKey) {
+		case 'Trondheim':
+			return <FontAwesomeIcon icon={faMonument} size={30} color='#7CD1ED' />;
+		case 'Help':
+			return <FontAwesomeIcon icon={faHeart} size={30} color='#FF4C4C' />; // Red for Help
+		case 'Cafes':
+			return <FontAwesomeIcon icon={faCoffee} size={30} color='#D2691E' />;
+		case 'Eat':
+			return <FontAwesomeIcon icon={faUtensils} size={30} color='#FFA500' />;
+		case 'Drink':
+			return <FontAwesomeIcon icon={faWineGlass} size={30} color='#FFD700' />;
+		case 'FreshAir':
+			return <FontAwesomeIcon icon={faHiking} size={30} color='#87CEEB' />;
+		case 'Activities':
+			return (
+				<FontAwesomeIcon icon={faPersonBiking} size={30} color='#32CD32' />
+			);
+		case 'Shopping':
+			return (
+				<FontAwesomeIcon icon={faBasketShopping} size={30} color='#FF69B4' />
+			);
+		case 'Museums':
+			return <FontAwesomeIcon icon={faLandmark} size={30} color='#9370DB' />;
+		case 'Party':
+			return <FontAwesomeIcon icon={faGlassCheers} size={30} color='#FF6347' />;
+		case 'All':
+			return <FontAwesomeIcon icon={faMonument} size={30} color='#56BC72' />;
+		default:
+			return <FontAwesomeIcon icon={faLocationDot} size={30} color='#FF6D8A' />;
+	}
+};
+
 export default function MapWithMarkers({ markersArray }) {
 	const navigationHook = useNavigation();
 	const [userLocation, setUserLocation] = useState(null);
-	const [mapRegion, setMapRegion] = useState(null); // Initially null to avoid rendering issues
+	const [mapRegion, setMapRegion] = useState(null);
 
 	useEffect(() => {
 		let locationSubscription = null;
 
 		const fetchUserLocation = async () => {
-			// Request permissions
 			let { status } = await Location.requestForegroundPermissionsAsync();
 			if (status !== 'granted') {
-				Alert.alert('Permission Denied', 'Location permission is required.');
-				setMapRegion(INITIAL_REGION); // Default to initial region if permission is denied
+				setMapRegion(INITIAL_REGION);
 				return;
 			}
 
-			// Fetch current position and start watching the location
 			let location = await Location.getCurrentPositionAsync({});
 			const userCoords = {
 				latitude: location.coords.latitude,
 				longitude: location.coords.longitude,
-				latitudeDelta: 0.05, // Slightly more zoomed out
-				longitudeDelta: 0.05, // Slightly more zoomed out
+				latitudeDelta: 0.05,
+				longitudeDelta: 0.05,
 			};
 
-			// Check if the user is within 15 km of the initial region
-			const distanceFromInitial = calculateDistance(
-				INITIAL_REGION.latitude,
-				INITIAL_REGION.longitude,
-				userCoords.latitude,
-				userCoords.longitude
-			);
+			setMapRegion(userCoords);
+			setUserLocation(userCoords);
 
-			// Set the map region based on user's location or initial region
-			if (distanceFromInitial <= 15) {
-				setMapRegion(userCoords);
-			} else {
-				setMapRegion(INITIAL_REGION);
-			}
-
-			setUserLocation(userCoords); // Set user's location for rendering
-
-			// Start watching location changes
 			locationSubscription = await Location.watchPositionAsync(
 				{
 					accuracy: Location.Accuracy.High,
@@ -70,19 +100,17 @@ export default function MapWithMarkers({ markersArray }) {
 					const updatedCoords = {
 						latitude: newLocation.coords.latitude,
 						longitude: newLocation.coords.longitude,
-						latitudeDelta: 0.05, // Slightly more zoomed out
-						longitudeDelta: 0.05, // Slightly more zoomed out
+						latitudeDelta: 0.05,
+						longitudeDelta: 0.05,
 					};
-
 					setUserLocation(updatedCoords);
-					setMapRegion(updatedCoords); // Update map region dynamically
+					setMapRegion(updatedCoords);
 				}
 			);
 		};
 
 		fetchUserLocation();
 
-		// Cleanup subscription on component unmount
 		return () => {
 			if (locationSubscription) {
 				locationSubscription.remove();
@@ -90,27 +118,11 @@ export default function MapWithMarkers({ markersArray }) {
 		};
 	}, []);
 
-	// Calculate distance in kilometers between two coordinates
-	const calculateDistance = (lat1, lon1, lat2, lon2) => {
-		const toRadians = (degree) => (degree * Math.PI) / 180;
-		const R = 6371; // Radius of Earth in kilometers
-		const dLat = toRadians(lat2 - lat1);
-		const dLon = toRadians(lon2 - lon1);
-		const a =
-			Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-			Math.cos(toRadians(lat1)) *
-				Math.cos(toRadians(lat2)) *
-				Math.sin(dLon / 2) *
-				Math.sin(dLon / 2);
-		const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-		return R * c; // Distance in kilometers
-	};
-
 	return (
 		<MapView
 			style={styles.mapStyle}
 			initialRegion={INITIAL_REGION}
-			region={mapRegion || INITIAL_REGION} // Default to initial region until mapRegion is set
+			region={mapRegion || INITIAL_REGION}
 		>
 			{/* Render user's location marker */}
 			{userLocation && (
@@ -119,7 +131,7 @@ export default function MapWithMarkers({ markersArray }) {
 					title='Your Location'
 					description='This is where you are.'
 				>
-					<FontAwesome name='user-circle-o' size={30} color='#116bff' />
+					<FontAwesome name='map-marker' size={30} color='#116bff' />
 				</Marker>
 			)}
 
@@ -128,9 +140,8 @@ export default function MapWithMarkers({ markersArray }) {
 				<Marker
 					coordinate={m.latLong}
 					title={m.title}
-					description={m.shortDescription + ' - ' + m.pressForMoreInfo}
+					description={m.shortDescription}
 					key={`marker-${i}`}
-					// Navigate to new page with details
 					onCalloutPress={() =>
 						navigationHook.navigate('MarkerInfoScreen', {
 							itemId: m.key,
@@ -141,10 +152,7 @@ export default function MapWithMarkers({ markersArray }) {
 						})
 					}
 				>
-					<Image
-						style={styles.image}
-						source={require('../assets/ExploreTrondheim/map-marker.png')}
-					/>
+					{getIconForFilter(m.filterKey)}
 				</Marker>
 			))}
 		</MapView>
@@ -155,10 +163,5 @@ const styles = StyleSheet.create({
 	mapStyle: {
 		width: width,
 		height: height,
-	},
-	image: {
-		resizeMode: 'contain',
-		width: width * 0.1,
-		height: width * 0.1,
 	},
 });
