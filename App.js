@@ -5,7 +5,6 @@ import {
 	Dimensions,
 	Text,
 	TouchableOpacity,
-	Image,
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -18,7 +17,6 @@ import FAQScreen from './src/screens/FAQScreen';
 import InformationScreen from './src/screens/InformationScreen';
 import MarkerInfoScreen from './src/screens/MarkerInfoScreen';
 import AttractionBoxScreen from './src/screens/AttractionBoxScreen';
-import AttractionBoxInfoScreen from './src/screens/AttractionBoxInfoScreen';
 import * as Font from 'expo-font';
 
 const width = Dimensions.get('screen').width;
@@ -30,25 +28,13 @@ const MapsStack = createStackNavigator();
 function MapsStackScreen() {
 	return (
 		<MapsStack.Navigator screenOptions={{ headerShown: false }}>
-			<MapsStack.Screen name='MapsScreen' component={MapScreen} />
-			<MapsStack.Screen name='MarkerInfoScreen' component={MarkerInfoScreen} />
-		</MapsStack.Navigator>
-	);
-}
-
-const AttractionStack = createStackNavigator();
-function AttractionStackScreen() {
-	return (
-		<AttractionStack.Navigator screenOptions={{ headerShown: false }}>
-			<AttractionStack.Screen
+			<MapsStack.Screen name='MapScreen' component={MapScreen} />
+			<MapsStack.Screen
 				name='AttractionBoxScreen'
 				component={AttractionBoxScreen}
 			/>
-			<AttractionStack.Screen
-				name='AttractionBoxInfoScreen'
-				component={AttractionBoxInfoScreen}
-			/>
-		</AttractionStack.Navigator>
+			<MapsStack.Screen name='MarkerInfoScreen' component={MarkerInfoScreen} />
+		</MapsStack.Navigator>
 	);
 }
 
@@ -89,35 +75,64 @@ function HomeTabs({ showAttractions, setShowAttractions }) {
 			/>
 			<Tab.Screen
 				name='Explore'
-				component={showAttractions ? AttractionStackScreen : MapsStackScreen}
-				options={{
-					headerTitle: 'Explore Trondheim',
-					headerTintColor: '#FFF5F3',
-					headerStyle: {
-						backgroundColor: '#FF6D8A', // Pink
+				component={MapsStackScreen}
+				listeners={({ navigation }) => ({
+					tabPress: (e) => {
+						setShowAttractions(false);
+						navigation.navigate('Explore', {
+							screen: 'MapScreen', // Specify the nested screen
+						});
 					},
-					tabBarIcon: ({ color }) => (
-						<Entypo name='globe' size={23} color={color} />
-					),
-					tabBarActiveTintColor: '#FF6D8A',
-					headerRight: () => (
-						<TouchableOpacity
-							onPress={() => setShowAttractions(!showAttractions)} // Toggle the state
-							style={{
-								marginRight: 10,
-								backgroundColor: 'transparent', // Make the button transparent
-							}}
-						>
-							<Image
-								source={
-									showAttractions
-										? require('./src/assets/ExploreTrondheim/mapicon.png')
-										: require('./src/assets/ExploreTrondheim/listicon.png')
-								}
-								style={{ width: 24, height: 24 }} // Adjust size as necessary
-							/>
-						</TouchableOpacity>
-					),
+				})}
+				options={({ navigation }) => {
+					const currentRoute = navigation
+						.getState()
+						?.routes?.find((r) => r.name === 'Explore')
+						?.state?.routes?.slice(-1)[0]?.name;
+
+					const isOnMarkerInfoScreen = currentRoute === 'MarkerInfoScreen';
+
+					return {
+						headerTitle: 'Explore Trondheim',
+						headerTintColor: '#FFF5F3',
+						headerStyle: {
+							backgroundColor: '#FF6D8A', // Pink
+						},
+						tabBarIcon: ({ color }) => (
+							<Entypo name='globe' size={23} color={color} />
+						),
+						tabBarActiveTintColor: '#FF6D8A',
+						headerLeft: () =>
+							isOnMarkerInfoScreen ? (
+								<TouchableOpacity
+									onPress={() => {
+										navigation.navigate(
+											showAttractions ? 'AttractionBoxScreen' : 'MapScreen'
+										);
+									}}
+									style={{ marginLeft: 10 }}
+								>
+									<FontAwesome name='arrow-left' size={30} color='#FFF5F3' />
+								</TouchableOpacity>
+							) : null,
+						headerRight: () =>
+							isOnMarkerInfoScreen ? null : (
+								<TouchableOpacity
+									onPress={() => {
+										setShowAttractions(!showAttractions);
+										navigation.navigate(
+											showAttractions ? 'MapScreen' : 'AttractionBoxScreen'
+										);
+									}}
+									style={{
+										marginRight: 10,
+										backgroundColor: 'transparent', // Make the button transparent
+									}}
+								>
+									<Entypo name={showAttractions ? 'map' : 'list'} size={30} />
+								</TouchableOpacity>
+							),
+					};
 				}}
 			/>
 			<Tab.Screen
@@ -154,7 +169,30 @@ function App() {
 						/>
 					)}
 				</MainStack.Screen>
-				<MainStack.Screen name='Info' component={InformationScreen} />
+				<MainStack.Screen
+					name='Info'
+					component={InformationScreen}
+					options={({ navigation }) => {
+						return {
+							headerShown: true, // Enable the header
+							headerTitle: 'Theme',
+							headerTintColor: '#FFF5F3',
+							headerStyle: {
+								backgroundColor: '#C92332', // Red
+							},
+							headerLeft: () => (
+								<TouchableOpacity
+									onPress={() => {
+										navigation.navigate('Theme');
+									}}
+									style={{ marginLeft: 10 }}
+								>
+									<FontAwesome name='arrow-left' size={30} color='#FFF5F3' />
+								</TouchableOpacity>
+							),
+						};
+					}}
+				/>
 				<MainStack.Screen name='Show' component={EventScreen} />
 			</MainStack.Navigator>
 		</NavigationContainer>
@@ -216,22 +254,3 @@ export default () => {
 		return <App />;
 	}
 };
-
-const styles = StyleSheet.create({
-	titletext: {
-		fontSize: 20,
-		color: 'white',
-		fontWeight: 'bold',
-	},
-	randomText: {
-		paddingTop: height * 0.01,
-		fontSize: 16,
-		color: 'white',
-	},
-	picture: {
-		alignSelf: 'center',
-		margin: width * 0.5,
-		height: height * 0.5,
-		resizeMode: 'contain',
-	},
-});

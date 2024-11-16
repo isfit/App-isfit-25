@@ -7,12 +7,11 @@ import {
 	ScrollView,
 	Image,
 } from 'react-native';
-import Header from '../components/Header';
 
 const width = Dimensions.get('screen').width;
 const height = Dimensions.get('screen').height;
 
-const InformationScreen = ({ navigation, route }) => {
+const InformationScreen = ({ route }) => {
 	//Legge inn riktig tekst osv.
 	const { itemTitle, itemPicture, itemInfo, logoInfo } = route.params.params;
 
@@ -31,11 +30,6 @@ const InformationScreen = ({ navigation, route }) => {
 
 	return (
 		<View style={{ flex: 1, backgroundColor: '#e2d0e5' }}>
-			<Header
-				title='Info'
-				onPress={() => navigation.navigate('Theme')}
-				headerType='ArticleScreen'
-			/>
 			<ScrollView>
 				<View style={styles.titleView}>
 					<Text style={styles.titleText}>{itemTitle}</Text>
