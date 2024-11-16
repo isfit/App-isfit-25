@@ -1,33 +1,136 @@
-import React from 'react';
-import { Image, StyleSheet, Dimensions } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Image, StyleSheet, Dimensions, Alert } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
+import * as Location from 'expo-location';
 import { useNavigation } from '@react-navigation/native';
+import { FontAwesome } from '@expo/vector-icons';
 
 const width = Dimensions.get('screen').width;
 const height = Dimensions.get('screen').height;
 
+// Define the initial region
+const INITIAL_REGION = {
+	latitude: 63.421615,
+	longitude: 10.395053,
+	latitudeDelta: 0.04,
+	longitudeDelta: 0.05,
+};
+
 export default function MapWithMarkers({ markersArray }) {
 	const navigationHook = useNavigation();
+	const [userLocation, setUserLocation] = useState(null);
+	const [mapRegion, setMapRegion] = useState(null); // Initially null to avoid rendering issues
+
+	useEffect(() => {
+		let locationSubscription = null;
+
+		const fetchUserLocation = async () => {
+			// Request permissions
+			let { status } = await Location.requestForegroundPermissionsAsync();
+			if (status !== 'granted') {
+				Alert.alert('Permission Denied', 'Location permission is required.');
+				setMapRegion(INITIAL_REGION); // Default to initial region if permission is denied
+				return;
+			}
+
+			// Fetch current position and start watching the location
+			let location = await Location.getCurrentPositionAsync({});
+			const userCoords = {
+				latitude: location.coords.latitude,
+				longitude: location.coords.longitude,
+				latitudeDelta: 0.05, // Slightly more zoomed out
+				longitudeDelta: 0.05, // Slightly more zoomed out
+			};
+
+			// Check if the user is within 15 km of the initial region
+			const distanceFromInitial = calculateDistance(
+				INITIAL_REGION.latitude,
+				INITIAL_REGION.longitude,
+				userCoords.latitude,
+				userCoords.longitude
+			);
+
+			// Set the map region based on user's location or initial region
+			if (distanceFromInitial <= 15) {
+				setMapRegion(userCoords);
+			} else {
+				setMapRegion(INITIAL_REGION);
+			}
+
+			setUserLocation(userCoords); // Set user's location for rendering
+
+			// Start watching location changes
+			locationSubscription = await Location.watchPositionAsync(
+				{
+					accuracy: Location.Accuracy.High,
+					timeInterval: 1000,
+					distanceInterval: 10,
+				},
+				(newLocation) => {
+					const updatedCoords = {
+						latitude: newLocation.coords.latitude,
+						longitude: newLocation.coords.longitude,
+						latitudeDelta: 0.05, // Slightly more zoomed out
+						longitudeDelta: 0.05, // Slightly more zoomed out
+					};
+
+					setUserLocation(updatedCoords);
+					setMapRegion(updatedCoords); // Update map region dynamically
+				}
+			);
+		};
+
+		fetchUserLocation();
+
+		// Cleanup subscription on component unmount
+		return () => {
+			if (locationSubscription) {
+				locationSubscription.remove();
+			}
+		};
+	}, []);
+
+	// Calculate distance in kilometers between two coordinates
+	const calculateDistance = (lat1, lon1, lat2, lon2) => {
+		const toRadians = (degree) => (degree * Math.PI) / 180;
+		const R = 6371; // Radius of Earth in kilometers
+		const dLat = toRadians(lat2 - lat1);
+		const dLon = toRadians(lon2 - lon1);
+		const a =
+			Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+			Math.cos(toRadians(lat1)) *
+				Math.cos(toRadians(lat2)) *
+				Math.sin(dLon / 2) *
+				Math.sin(dLon / 2);
+		const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+		return R * c; // Distance in kilometers
+	};
 
 	return (
 		<MapView
-			style={{
-				flex: 1,
-			}}
-			initialRegion={{
-				latitude: 63.421615,
-				longitude: 10.395053,
-				latitudeDelta: 0.04,
-				longitudeDelta: 0.05,
-			}}
+			style={styles.mapStyle}
+			initialRegion={INITIAL_REGION}
+			region={mapRegion || INITIAL_REGION} // Default to initial region until mapRegion is set
 		>
+			{/* Render user's location marker */}
+			{userLocation && (
+				<Marker
+					coordinate={userLocation}
+					title='Your Location'
+					description='This is where you are.'
+				>
+					<FontAwesome name='user-circle-o' size={30} color='#116bff' />
+				</Marker>
+			)}
+
+			{/* Render markers from markersArray */}
 			{markersArray.map((m, i) => (
 				<Marker
 					coordinate={m.latLong}
 					title={m.title}
 					description={m.shortDescription + ' - ' + m.pressForMoreInfo}
 					key={`marker-${i}`}
-					//when navigating to new page; key, logo and information parameters are passed with the navigation.
+					// Navigate to new page with details
 					onCalloutPress={() =>
 						navigationHook.navigate('MarkerInfoScreen', {
 							itemId: m.key,
@@ -53,98 +156,9 @@ const styles = StyleSheet.create({
 		width: width,
 		height: height,
 	},
-	transparentBox: {
-		position: 'absolute',
-		top: 0,
-		bottom: 0,
-		right: 0,
-		left: width - 30,
-		backgroundColor: 'transparent',
-		resizeMode: 'resize',
-	},
 	image: {
 		resizeMode: 'contain',
 		width: width * 0.1,
 		height: width * 0.1,
-	},
-	redFilterButton: {
-		alignSelf: 'flex-start',
-		elevation: 4,
-		backgroundColor: '#FF7B7B',
-		borderColor: '#A70000',
-		borderRadius: 50,
-		borderWidth: 2,
-		paddingVertical: 11,
-		paddingHorizontal: 15,
-	},
-	blueFilterButton: {
-		alignSelf: 'flex-start',
-		elevation: 4,
-		backgroundColor: '#7CD1ED',
-		borderColor: '#0197CC',
-		borderRadius: 50,
-		borderWidth: 2,
-		paddingVertical: 11,
-		paddingHorizontal: 15,
-	},
-	orangeFilterButton: {
-		alignSelf: 'flex-start',
-		elevation: 4,
-		backgroundColor: '#FFAD33',
-		borderColor: '#F78D1F',
-		borderRadius: 50,
-		borderWidth: 2,
-		paddingVertical: 11,
-		paddingHorizontal: 15,
-	},
-	greenFilterButton: {
-		alignSelf: 'flex-start',
-		elevation: 4,
-		backgroundColor: '#56BC72',
-		borderColor: '#37894E',
-		borderRadius: 50,
-		borderWidth: 2,
-		paddingVertical: 11,
-		paddingHorizontal: 15,
-	},
-	purpleFilterButton: {
-		alignSelf: 'flex-start',
-		elevation: 4,
-		backgroundColor: '#B77FB9',
-		borderColor: '#99499C',
-		borderRadius: 50,
-		borderWidth: 2,
-		paddingVertical: 11,
-		paddingHorizontal: 15,
-	},
-	pinkFilterButton: {
-		alignSelf: 'flex-start',
-		elevation: 4,
-		backgroundColor: '#F087AA',
-		borderColor: '#E63872',
-		borderRadius: 50,
-		borderWidth: 2,
-		paddingVertical: 11,
-		paddingHorizontal: 15,
-	},
-	yellowFilterButton: {
-		alignSelf: 'flex-start',
-		elevation: 4,
-		backgroundColor: '#F0BD69',
-		borderColor: '#EAA22A',
-		borderRadius: 50,
-		borderWidth: 2,
-		paddingVertical: 11,
-		paddingHorizontal: 15,
-	},
-	darkPurpleFilterButton: {
-		alignSelf: 'flex-start',
-		elevation: 4,
-		backgroundColor: '#99499C',
-		borderColor: '#C5A2CC',
-		borderRadius: 50,
-		borderWidth: 2,
-		paddingVertical: 11,
-		paddingHorizontal: 15,
 	},
 });
