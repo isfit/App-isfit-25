@@ -1,12 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import {
-	StyleSheet,
-	Dimensions,
-	View,
-	TouchableOpacity,
-	Text,
-} from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+import React, { useEffect, useState, useRef } from 'react';
+import { StyleSheet, Dimensions, View, TouchableOpacity } from 'react-native';
+import MapView, { Marker, AnimatedRegion } from 'react-native-maps';
 import * as Location from 'expo-location';
 import * as Animatable from 'react-native-animatable';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
@@ -86,7 +80,16 @@ const getIconForFilter = (filterKey) => {
 
 export default function MapWithMarkers({ markersArray }) {
 	const [userLocation, setUserLocation] = useState(null);
-	const [mapRegion, setMapRegion] = useState(null);
+	const mapRegion = useRef(
+		new AnimatedRegion({
+			latitude: INITIAL_REGION.latitude,
+			longitude: INITIAL_REGION.longitude,
+			latitudeDelta: INITIAL_REGION.latitudeDelta,
+			longitudeDelta: INITIAL_REGION.longitudeDelta,
+		})
+	).current;
+
+	const mapViewRef = useRef(null);
 
 	useEffect(() => {
 		let locationSubscription = null;
@@ -94,7 +97,7 @@ export default function MapWithMarkers({ markersArray }) {
 		const fetchUserLocation = async () => {
 			let { status } = await Location.requestForegroundPermissionsAsync();
 			if (status !== 'granted') {
-				setMapRegion(INITIAL_REGION);
+				mapRegion.setValue(INITIAL_REGION);
 				return;
 			}
 
@@ -114,10 +117,10 @@ export default function MapWithMarkers({ markersArray }) {
 			);
 
 			if (distance <= 15) {
-				setMapRegion(userCoords);
+				mapRegion.setValue(userCoords);
 				setUserLocation(userCoords);
 			} else {
-				setMapRegion(INITIAL_REGION);
+				mapRegion.setValue(INITIAL_REGION);
 			}
 
 			locationSubscription = await Location.watchPositionAsync(
@@ -158,19 +161,23 @@ export default function MapWithMarkers({ markersArray }) {
 	}, []);
 
 	const recenterToUser = () => {
-		setMapRegion(userLocation);
+		if (userLocation && mapViewRef.current) {
+			mapViewRef.current.animateToRegion(userLocation, 500);
+		}
 	};
 
 	const recenterToInitial = () => {
-		setMapRegion(INITIAL_REGION);
+		if (mapViewRef.current) {
+			mapViewRef.current.animateToRegion(INITIAL_REGION, 500);
+		}
 	};
 
 	return (
 		<View style={styles.container}>
-			<MapView
+			<MapView.Animated
+				ref={mapViewRef}
 				style={styles.mapStyle}
 				initialRegion={INITIAL_REGION}
-				region={mapRegion || INITIAL_REGION}
 			>
 				{userLocation && (
 					<Marker
@@ -198,12 +205,12 @@ export default function MapWithMarkers({ markersArray }) {
 						{getIconForFilter(m.filterKey)}
 					</Marker>
 				))}
-			</MapView>
+			</MapView.Animated>
 
 			<View
 				style={[
 					styles.buttonContainer,
-					userLocation ? styles.pillShape : styles.circleShape,
+					userLocation ? null : styles.circleShape,
 				]}
 			>
 				{userLocation && (
@@ -223,10 +230,7 @@ export default function MapWithMarkers({ markersArray }) {
 				)}
 
 				<TouchableOpacity
-					style={[
-						styles.iconButton,
-						userLocation ? styles.withPill : styles.withCircle,
-					]}
+					style={[styles.iconButton]}
 					onPress={recenterToInitial}
 				>
 					<FontAwesomeIcon icon={faCity} size={20} color='#FF6D8A' />
@@ -254,6 +258,14 @@ const styles = StyleSheet.create({
 		flexDirection: 'column',
 		alignItems: 'center',
 		justifyContent: 'space-between',
+		backgroundColor: '#FFFFFF', // Set the background color
+		justifyContent: 'center', // Center the content horizontally
+		alignItems: 'center', // Center the content vertically
+		elevation: 5, // Add shadow (Android)
+		shadowColor: '#000', // Add shadow (iOS)
+		shadowOffset: { width: 0, height: 2 },
+		shadowOpacity: 0.25,
+		shadowRadius: 3.84,
 	},
 	iconButton: {
 		padding: 15,
@@ -262,5 +274,8 @@ const styles = StyleSheet.create({
 		width: '100%',
 		height: 1,
 		backgroundColor: '#FF6D8A',
+	},
+	circleShape: {
+		borderRadius: 50,
 	},
 });
