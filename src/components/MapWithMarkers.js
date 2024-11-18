@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState, useRef } from 'react';
 import { StyleSheet, Dimensions, View, TouchableOpacity } from 'react-native';
 import MapView, { Marker, AnimatedRegion } from 'react-native-maps';
@@ -79,6 +80,7 @@ const getIconForFilter = (filterKey) => {
 };
 
 export default function MapWithMarkers({ markersArray }) {
+	const navigationHook = useNavigation();
 	const [userLocation, setUserLocation] = useState(null);
 	const mapRegion = useRef(
 		new AnimatedRegion({
@@ -201,6 +203,15 @@ export default function MapWithMarkers({ markersArray }) {
 						title={m.title}
 						description={m.shortDescription}
 						key={`marker-${i}`}
+						onCalloutPress={() =>
+							navigationHook.navigate('MarkerInfoScreen', {
+								itemId: m.key,
+								itemTitle: m.title,
+								itemPicture: m.logo,
+								itemInformation: m.information,
+								itemPhotographer: m.photographer,
+							})
+						}
 					>
 						{getIconForFilter(m.filterKey)}
 					</Marker>
