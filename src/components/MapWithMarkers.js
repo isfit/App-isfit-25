@@ -31,6 +31,21 @@ const INITIAL_REGION = {
 	longitudeDelta: 0.05,
 };
 
+// Function to calculate distance in km between two coordinates using the Haversine formula
+const calculateDistance = (lat1, lon1, lat2, lon2) => {
+	const R = 6371; // Earth's radius in km
+	const dLat = ((lat2 - lat1) * Math.PI) / 180;
+	const dLon = ((lon2 - lon1) * Math.PI) / 180;
+	const a =
+		Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+		Math.cos((lat1 * Math.PI) / 180) *
+			Math.cos((lat2 * Math.PI) / 180) *
+			Math.sin(dLon / 2) *
+			Math.sin(dLon / 2);
+	const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+	return R * c; // Distance in km
+};
+
 // Map filterKey to corresponding icons
 const getIconForFilter = (filterKey) => {
 	switch (filterKey) {
@@ -88,8 +103,21 @@ export default function MapWithMarkers({ markersArray }) {
 				longitudeDelta: 0.05,
 			};
 
-			setMapRegion(userCoords);
-			setUserLocation(userCoords);
+			// Calculate distance between user location and initial coordinates
+			const distance = calculateDistance(
+				userCoords.latitude,
+				userCoords.longitude,
+				INITIAL_REGION.latitude,
+				INITIAL_REGION.longitude
+			);
+
+			if (distance <= 15) {
+				// Only set map region if within 15 km
+				setMapRegion(userCoords);
+				setUserLocation(userCoords);
+			} else {
+				setMapRegion(INITIAL_REGION);
+			}
 
 			locationSubscription = await Location.watchPositionAsync(
 				{
@@ -104,8 +132,21 @@ export default function MapWithMarkers({ markersArray }) {
 						latitudeDelta: 0.05,
 						longitudeDelta: 0.05,
 					};
-					setUserLocation(updatedCoords);
-					setMapRegion(updatedCoords);
+
+					// Recalculate distance for updated location
+					const newDistance = calculateDistance(
+						updatedCoords.latitude,
+						updatedCoords.longitude,
+						INITIAL_REGION.latitude,
+						INITIAL_REGION.longitude
+					);
+
+					if (newDistance <= 15) {
+						setUserLocation(updatedCoords);
+						setMapRegion(updatedCoords);
+					} else {
+						setMapRegion(INITIAL_REGION);
+					}
 				}
 			);
 		};
