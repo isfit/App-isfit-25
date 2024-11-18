@@ -1364,11 +1364,11 @@ export const attractionMarkers = [
 		title: 'Barmuda',
 		shortDescription: 'The most famous Cava Sunday in Trondheim',
 		pressForMoreInfo: 'Press for more info!',
-		photographer: 'From: Barmuda Instagram',
+		photographer: 'Photo by Edvard Bjørnevik of Tobias Enoksen ',
 		info: 'MarkerInfo',
-		logo: require('../assets/ExploreTrondheim/Party/Barmuda.png'),
+		logo: require('../assets/ExploreTrondheim/Party/barmuda.png'),
 		information:
-			"Barmuda is known for their Cava Sunday, which is the perfect place for students to go to get some cheap Cava and meet some new people on Sundays. They have a DJ set-up with good party music. Barmuda is also a fun bar during the other days of the week, and it's located at Solsiden, next to a lot of other nice restaurants and bars, so it's a perfect place to explore. Barmuda is open from 1 pm - 2 am on Saturday and Sunday, and 4 pm - 2 am on Tuesday to Friday.",
+			'"Cava Sunday is like 17th of May without suits and bunad" - Enoksen\n\nBarmuda is known for their Cava Sunday, the perfect place for students to get cheap Cava and meet new people on Sundays. Barmuda, located at Solsiden, offer electric atmosphere and great music by a DJ. Remember! Cava Sunday is the last day of the week to party…\n\nBarmuda is located next to a lot of nice restaurants and bars (also with Cava Sunday), so it`s a perfect place to explore. Barmuda is open from 1 pm - 2 am on Saturday and Sunday, and 4 pm - 2 am on Tuesday to Friday.',
 		latLong: {
 			latitude: 63.43451983312366,
 			longitude: 10.412403363499847,
