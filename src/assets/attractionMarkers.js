@@ -1366,7 +1366,7 @@ export const attractionMarkers = [
 		pressForMoreInfo: 'Press for more info!',
 		photographer: 'Photo by Edvard Bjørnevik of Tobias Enoksen ',
 		info: 'MarkerInfo',
-		logo: require('../assets/ExploreTrondheim/Party/barmuda.png'),
+		logo: require('../assets/ExploreTrondheim/Party/Barmuda.png'),
 		information:
 			'"Cava Sunday is like 17th of May without suits and bunad" - Enoksen\n\nBarmuda is known for their Cava Sunday, the perfect place for students to get cheap Cava and meet new people on Sundays. Barmuda, located at Solsiden, offer electric atmosphere and great music by a DJ. Remember! Cava Sunday is the last day of the week to party…\n\nBarmuda is located next to a lot of nice restaurants and bars (also with Cava Sunday), so it`s a perfect place to explore. Barmuda is open from 1 pm - 2 am on Saturday and Sunday, and 4 pm - 2 am on Tuesday to Friday.',
 		latLong: {
