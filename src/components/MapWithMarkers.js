@@ -1,10 +1,9 @@
-import { useNavigation } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, Dimensions, View } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+import React, { useEffect, useState, useRef } from 'react';
+import { StyleSheet, Dimensions, View, TouchableOpacity } from 'react-native';
+import MapView, { Marker, AnimatedRegion } from 'react-native-maps';
 import * as Location from 'expo-location';
 import * as Animatable from 'react-native-animatable';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'; // Using FontAwesomeIcon
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import {
 	faUtensils,
 	faCoffee,
@@ -18,12 +17,13 @@ import {
 	faPersonBiking,
 	faLocationDot,
 	faCircleUser,
-} from '@fortawesome/free-solid-svg-icons'; // Import desired icons
+	faLocationArrow,
+	faCity,
+} from '@fortawesome/free-solid-svg-icons';
 
 const width = Dimensions.get('screen').width;
 const height = Dimensions.get('screen').height;
 
-// Define the initial region
 const INITIAL_REGION = {
 	latitude: 63.421615,
 	longitude: 10.395053,
@@ -31,7 +31,6 @@ const INITIAL_REGION = {
 	longitudeDelta: 0.05,
 };
 
-// Function to calculate distance in km between two coordinates using the Haversine formula
 const calculateDistance = (lat1, lon1, lat2, lon2) => {
 	const R = 6371; // Earth's radius in km
 	const dLat = ((lat2 - lat1) * Math.PI) / 180;
@@ -46,13 +45,12 @@ const calculateDistance = (lat1, lon1, lat2, lon2) => {
 	return R * c; // Distance in km
 };
 
-// Map filterKey to corresponding icons
 const getIconForFilter = (filterKey) => {
 	switch (filterKey) {
 		case 'Trondheim':
 			return <FontAwesomeIcon icon={faMonument} size={30} color='#7CD1ED' />;
 		case 'Help':
-			return <FontAwesomeIcon icon={faHeart} size={30} color='#FF4C4C' />; // Red for Help
+			return <FontAwesomeIcon icon={faHeart} size={30} color='#FF4C4C' />;
 		case 'Cafes':
 			return <FontAwesomeIcon icon={faCoffee} size={30} color='#D2691E' />;
 		case 'Eat':
@@ -81,9 +79,17 @@ const getIconForFilter = (filterKey) => {
 };
 
 export default function MapWithMarkers({ markersArray }) {
-	const navigationHook = useNavigation();
 	const [userLocation, setUserLocation] = useState(null);
-	const [mapRegion, setMapRegion] = useState(null);
+	const mapRegion = useRef(
+		new AnimatedRegion({
+			latitude: INITIAL_REGION.latitude,
+			longitude: INITIAL_REGION.longitude,
+			latitudeDelta: INITIAL_REGION.latitudeDelta,
+			longitudeDelta: INITIAL_REGION.longitudeDelta,
+		})
+	).current;
+
+	const mapViewRef = useRef(null);
 
 	useEffect(() => {
 		let locationSubscription = null;
@@ -91,7 +97,7 @@ export default function MapWithMarkers({ markersArray }) {
 		const fetchUserLocation = async () => {
 			let { status } = await Location.requestForegroundPermissionsAsync();
 			if (status !== 'granted') {
-				setMapRegion(INITIAL_REGION);
+				mapRegion.setValue(INITIAL_REGION);
 				return;
 			}
 
@@ -103,7 +109,6 @@ export default function MapWithMarkers({ markersArray }) {
 				longitudeDelta: 0.05,
 			};
 
-			// Calculate distance between user location and initial coordinates
 			const distance = calculateDistance(
 				userCoords.latitude,
 				userCoords.longitude,
@@ -112,11 +117,10 @@ export default function MapWithMarkers({ markersArray }) {
 			);
 
 			if (distance <= 15) {
-				// Only set map region if within 15 km
-				setMapRegion(userCoords);
+				mapRegion.setValue(userCoords);
 				setUserLocation(userCoords);
 			} else {
-				setMapRegion(INITIAL_REGION);
+				mapRegion.setValue(INITIAL_REGION);
 			}
 
 			locationSubscription = await Location.watchPositionAsync(
@@ -133,7 +137,6 @@ export default function MapWithMarkers({ markersArray }) {
 						longitudeDelta: 0.05,
 					};
 
-					// Recalculate distance for updated location
 					const newDistance = calculateDistance(
 						updatedCoords.latitude,
 						updatedCoords.longitude,
@@ -143,9 +146,6 @@ export default function MapWithMarkers({ markersArray }) {
 
 					if (newDistance <= 15) {
 						setUserLocation(updatedCoords);
-						setMapRegion(updatedCoords);
-					} else {
-						setMapRegion(INITIAL_REGION);
 					}
 				}
 			);
@@ -160,56 +160,122 @@ export default function MapWithMarkers({ markersArray }) {
 		};
 	}, []);
 
-	return (
-		<MapView
-			style={styles.mapStyle}
-			initialRegion={INITIAL_REGION}
-			region={mapRegion || INITIAL_REGION}
-		>
-			{/* Render user's location marker */}
-			{userLocation && (
-				<Marker
-					coordinate={userLocation}
-					title='Your Location'
-					description='This is where you are.'
-				>
-					<Animatable.View
-						animation='pulse'
-						easing='ease-out'
-						iterationCount='infinite'
-					>
-						<FontAwesomeIcon icon={faCircleUser} size={30} color='#FF6D8A' />
-					</Animatable.View>
-				</Marker>
-			)}
+	const recenterToUser = () => {
+		if (userLocation && mapViewRef.current) {
+			mapViewRef.current.animateToRegion(userLocation, 500);
+		}
+	};
 
-			{/* Render markers from markersArray */}
-			{markersArray.map((m, i) => (
-				<Marker
-					coordinate={m.latLong}
-					title={m.title}
-					description={m.shortDescription}
-					key={`marker-${i}`}
-					onCalloutPress={() =>
-						navigationHook.navigate('MarkerInfoScreen', {
-							itemId: m.key,
-							itemTitle: m.title,
-							itemPicture: m.logo,
-							itemInformation: m.information,
-							itemPhotographer: m.photographer,
-						})
-					}
+	const recenterToInitial = () => {
+		if (mapViewRef.current) {
+			mapViewRef.current.animateToRegion(INITIAL_REGION, 500);
+		}
+	};
+
+	return (
+		<View style={styles.container}>
+			<MapView.Animated
+				ref={mapViewRef}
+				style={styles.mapStyle}
+				initialRegion={INITIAL_REGION}
+			>
+				{userLocation && (
+					<Marker
+						coordinate={userLocation}
+						title='Your Location'
+						description='This is where you are.'
+					>
+						<Animatable.View
+							animation='pulse'
+							easing='ease-out'
+							iterationCount='infinite'
+						>
+							<FontAwesomeIcon icon={faCircleUser} size={30} color='#FF6D8A' />
+						</Animatable.View>
+					</Marker>
+				)}
+
+				{markersArray.map((m, i) => (
+					<Marker
+						coordinate={m.latLong}
+						title={m.title}
+						description={m.shortDescription}
+						key={`marker-${i}`}
+					>
+						{getIconForFilter(m.filterKey)}
+					</Marker>
+				))}
+			</MapView.Animated>
+
+			<View
+				style={[
+					styles.buttonContainer,
+					userLocation ? null : styles.circleShape,
+				]}
+			>
+				{userLocation && (
+					<>
+						<TouchableOpacity
+							style={styles.iconButton}
+							onPress={recenterToUser}
+						>
+							<FontAwesomeIcon
+								icon={faLocationArrow}
+								size={20}
+								color='#FF6D8A'
+							/>
+						</TouchableOpacity>
+						<View style={styles.divider} />
+					</>
+				)}
+
+				<TouchableOpacity
+					style={[styles.iconButton]}
+					onPress={recenterToInitial}
 				>
-					{getIconForFilter(m.filterKey)}
-				</Marker>
-			))}
-		</MapView>
+					<FontAwesomeIcon icon={faCity} size={20} color='#FF6D8A' />
+				</TouchableOpacity>
+			</View>
+		</View>
 	);
 }
-
 const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+	},
 	mapStyle: {
 		width: width,
 		height: height,
+	},
+	buttonContainer: {
+		position: 'absolute',
+		bottom: 30,
+		right: 10,
+		backgroundColor: '#FFFFFF',
+		borderRadius: 25,
+		elevation: 5,
+		padding: 5,
+		flexDirection: 'column',
+		alignItems: 'center',
+		justifyContent: 'space-between',
+		backgroundColor: '#FFFFFF', // Set the background color
+		justifyContent: 'center', // Center the content horizontally
+		alignItems: 'center', // Center the content vertically
+		elevation: 5, // Add shadow (Android)
+		shadowColor: '#000', // Add shadow (iOS)
+		shadowOffset: { width: 0, height: 2 },
+		shadowOpacity: 0.25,
+		shadowRadius: 3.84,
+	},
+	iconButton: {
+		padding: 15,
+	},
+	divider: {
+		width: '100%',
+		height: 1,
+		backgroundColor: '#FF6D8A',
+	},
+	circleShape: {
+		borderRadius: 50,
 	},
 });
