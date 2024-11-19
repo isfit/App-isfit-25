@@ -2,21 +2,11 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState, useRef } from 'react';
 import { StyleSheet, Dimensions, View, TouchableOpacity } from 'react-native';
 import MapView, { Marker, AnimatedRegion } from 'react-native-maps';
+import { calculateDistance, getIconForFilter } from '../utils/ExploreUtils';
 import * as Location from 'expo-location';
 import * as Animatable from 'react-native-animatable';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import {
-	faUtensils,
-	faCoffee,
-	faHiking,
-	faLandmark,
-	faHeart,
-	faBasketShopping,
-	faWineGlass,
-	faGlassCheers,
-	faMonument,
-	faPersonBiking,
-	faLocationDot,
 	faCircleUser,
 	faLocationArrow,
 	faCity,
@@ -30,53 +20,6 @@ const INITIAL_REGION = {
 	longitude: 10.395053,
 	latitudeDelta: 0.04,
 	longitudeDelta: 0.05,
-};
-
-const calculateDistance = (lat1, lon1, lat2, lon2) => {
-	const R = 6371; // Earth's radius in km
-	const dLat = ((lat2 - lat1) * Math.PI) / 180;
-	const dLon = ((lon2 - lon1) * Math.PI) / 180;
-	const a =
-		Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-		Math.cos((lat1 * Math.PI) / 180) *
-			Math.cos((lat2 * Math.PI) / 180) *
-			Math.sin(dLon / 2) *
-			Math.sin(dLon / 2);
-	const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-	return R * c; // Distance in km
-};
-
-const getIconForFilter = (filterKey) => {
-	switch (filterKey) {
-		case 'Trondheim':
-			return <FontAwesomeIcon icon={faMonument} size={30} color='#7CD1ED' />;
-		case 'Help':
-			return <FontAwesomeIcon icon={faHeart} size={30} color='#FF4C4C' />;
-		case 'Cafes':
-			return <FontAwesomeIcon icon={faCoffee} size={30} color='#D2691E' />;
-		case 'Eat':
-			return <FontAwesomeIcon icon={faUtensils} size={30} color='#FFA500' />;
-		case 'Drink':
-			return <FontAwesomeIcon icon={faWineGlass} size={30} color='#FFD700' />;
-		case 'FreshAir':
-			return <FontAwesomeIcon icon={faHiking} size={30} color='#87CEEB' />;
-		case 'Activities':
-			return (
-				<FontAwesomeIcon icon={faPersonBiking} size={30} color='#32CD32' />
-			);
-		case 'Shopping':
-			return (
-				<FontAwesomeIcon icon={faBasketShopping} size={30} color='#FF69B4' />
-			);
-		case 'Museums':
-			return <FontAwesomeIcon icon={faLandmark} size={30} color='#9370DB' />;
-		case 'Party':
-			return <FontAwesomeIcon icon={faGlassCheers} size={30} color='#FF6347' />;
-		case 'All':
-			return <FontAwesomeIcon icon={faMonument} size={30} color='#56BC72' />;
-		default:
-			return <FontAwesomeIcon icon={faLocationDot} size={30} color='#FF6D8A' />;
-	}
 };
 
 export default function MapWithMarkers({ markersArray }) {
