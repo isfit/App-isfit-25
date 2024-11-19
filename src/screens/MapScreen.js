@@ -8,86 +8,11 @@ import {
 	TouchableOpacity,
 } from 'react-native';
 import { attractionMarkers } from '../assets/attractionMarkers';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import MapWithMarkers from '../components/MapWithMarkers';
+import { filters, getStoredFavorites } from '../utils/ExploreUtils';
 
 const width = Dimensions.get('screen').width;
 const height = Dimensions.get('screen').height;
-
-const filters = [
-	{
-		key: 'All',
-		label: 'All places',
-		backgroundColor: '#56BC72',
-		borderColor: '#37894E',
-	},
-	{
-		key: 'Favorites',
-		label: 'Favorites',
-		backgroundColor: '#8A2BE2', // Unique purple
-		borderColor: '#5A189A',
-	},
-	{
-		key: 'Trondheim',
-		label: 'Trondheim 101',
-		backgroundColor: '#7CD1ED',
-		borderColor: '#0197CC',
-	},
-	{
-		key: 'Help',
-		label: 'Help',
-		backgroundColor: '#FF4C4C', // Strong red for "Help"
-		borderColor: '#A70000',
-	},
-	{
-		key: 'Cafes',
-		label: 'Cafés to relax in',
-		backgroundColor: '#D2691E', // Brown-orange
-		borderColor: '#A0522D',
-	},
-	{
-		key: 'Eat',
-		label: 'Places to eat',
-		backgroundColor: '#FFA500', // Bright orange
-		borderColor: '#CC8400',
-	},
-	{
-		key: 'Drink',
-		label: 'Places to drink',
-		backgroundColor: '#FFD700', // Golden yellow
-		borderColor: '#CCAC00',
-	},
-	{
-		key: 'FreshAir',
-		label: 'Fresh air',
-		backgroundColor: '#87CEEB', // Light blue
-		borderColor: '#4682B4',
-	},
-	{
-		key: 'Activities',
-		label: 'Activity for the body and soul',
-		backgroundColor: '#32CD32', // Lime green
-		borderColor: '#228B22',
-	},
-	{
-		key: 'Shopping',
-		label: 'Boutiques & Vintage shopping',
-		backgroundColor: '#FF69B4', // Hot pink
-		borderColor: '#C71585',
-	},
-	{
-		key: 'Museums',
-		label: 'Museums',
-		backgroundColor: '#9370DB', // Medium purple
-		borderColor: '#6A5ACD',
-	},
-	{
-		key: 'Party',
-		label: 'Party places',
-		backgroundColor: '#FF6347', // Tomato red
-		borderColor: '#FF4500',
-	},
-];
 
 export default class MapScreen extends Component {
 	constructor(props) {
@@ -201,17 +126,6 @@ export default class MapScreen extends Component {
 		);
 	}
 }
-
-// TODO: refactor to be used to store favorite markers and events
-const getStoredFavorites = async () => {
-	try {
-		const jsonValue = await AsyncStorage.getItem('@ISFiTApp23_FavoriteMarkers');
-		return jsonValue != null ? JSON.parse(jsonValue) : [];
-	} catch (e) {
-		console.log(e);
-		return [];
-	}
-};
 
 const styles = StyleSheet.create({
 	iconContainer: {
