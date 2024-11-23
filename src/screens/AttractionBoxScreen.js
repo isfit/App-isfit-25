@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useContext } from 'react';
 import {
 	Text,
 	View,
@@ -9,86 +9,35 @@ import {
 import { attractionMarkers } from '../assets/attractionMarkers';
 import AttractionMarkerBox from '../components/AttractionMarkerBox';
 
-import { filters, getStoredFavorites } from '../utils/ExploreUtils';
-
-const defaultFilter = 'All'; // Default filter
+import { filters } from '../utils/ExploreUtils';
+import { FilterContext } from '../context/FilterContext';
 
 export default function AttractionBoxScreen({ navigation }) {
 	const scrollRef = useRef();
+	const { activeFilter, changeFilter, favorites } = useContext(FilterContext);
+	const [activeMarkers, setActiveMarkers] = useState([]);
 
-	const [state, setState] = useState({
-		activeFilter: defaultFilter,
-		activeMarkers: attractionMarkers, // Default to all attractions
-		storedFavorites: [], // Initialize storedFavorites state
-	});
-
-	// Fetch favorites from AsyncStorage
-	const updateFavorites = async () => {
-		try {
-			const storedFavorites = await getStoredFavorites();
-			if (state.activeFilter === 'Favorites') {
-				applyFavoriteFilter(storedFavorites); // Apply favorites filter
-			} else {
-				// Keep the current filter intact
-				onFilterChange(state.activeFilter);
-			}
-		} catch (error) {
-			console.error('Error updating favorites:', error);
-		}
-	};
-
-	// Apply the favorites filter
-	const applyFavoriteFilter = async (favorites) => {
-		try {
-			const storedFavorites = favorites || (await getStoredFavorites()); // Use passed or fetched favorites
-			const filteredMarkersList = attractionMarkers.filter((marker) =>
-				storedFavorites.includes(marker.key)
-			);
-			setState((prevState) => ({
-				...prevState,
-				activeFilter: 'Favorites',
-				activeMarkers: filteredMarkersList,
-			}));
-		} catch (error) {
-			console.error('Error applying favorite filter:', error);
-		}
-	};
-
-	// Apply the "All" filter
-	const applyAllFilter = () => {
-		setState((prevState) => ({
-			...prevState,
-			activeFilter: 'All',
-			activeMarkers: attractionMarkers,
-		}));
-	};
-
-	const onFilterChange = (filter) => {
-		if (filter === 'Favorites') {
-			applyFavoriteFilter(); // Fetch and apply favorites
-		} else if (filter === 'All') {
-			applyAllFilter();
-		} else {
-			const filteredMarkersList = attractionMarkers.filter(
-				(x) => x.filterKey === filter
-			);
-			setState((prevState) => ({
-				...prevState,
-				activeFilter: filter,
-				activeMarkers: filteredMarkersList,
-			}));
-		}
-	};
-
-	// useEffect to add focus listener for navigation
 	useEffect(() => {
-		const unsubscribe = navigation.addListener('focus', () => {
-			scrollRef.current?.scrollTo({ y: 0, animated: true });
-			updateFavorites(); // Update favorites on focus without overriding filters
-		});
+		const applyFilter = () => {
+			let filteredMarkersList = [];
 
-		return unsubscribe; // Cleanup listener on unmount
-	}, [navigation, state.activeFilter]); // Add `state.activeFilter` as a dependency
+			if (activeFilter === 'Favorites') {
+				filteredMarkersList = attractionMarkers.filter((x) =>
+					favorites.includes(x.key)
+				);
+			} else if (activeFilter === 'All') {
+				filteredMarkersList = attractionMarkers;
+			} else {
+				filteredMarkersList = attractionMarkers.filter(
+					(x) => x.filterKey === activeFilter
+				);
+			}
+
+			setActiveMarkers(filteredMarkersList);
+		};
+
+		applyFilter();
+	}, [activeFilter, favorites]);
 
 	return (
 		<View style={{ flex: 1 }}>
@@ -98,13 +47,13 @@ export default function AttractionBoxScreen({ navigation }) {
 						<TouchableOpacity
 							key={filter.key}
 							style={[
-								styles.button, // Base button styles
+								styles.button,
 								{
 									backgroundColor: filter.backgroundColor,
 									borderColor: filter.borderColor,
 								},
 							]}
-							onPress={() => onFilterChange(filter.key)}
+							onPress={() => changeFilter(filter.key)}
 						>
 							<Text>{filter.label}</Text>
 						</TouchableOpacity>
@@ -112,7 +61,7 @@ export default function AttractionBoxScreen({ navigation }) {
 				</ScrollView>
 			</View>
 			<ScrollView ref={scrollRef}>
-				{state.activeMarkers.map((m, i) => (
+				{activeMarkers.map((m, i) => (
 					<AttractionMarkerBox
 						key={i}
 						keyID={m.key}

@@ -12,7 +12,6 @@ import {
 	faPersonBiking,
 	faLocationDot,
 } from '@fortawesome/free-solid-svg-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const calculateDistance = (lat1, lon1, lat2, lon2) => {
 	const R = 6371; // Earth's radius in km
@@ -135,14 +134,3 @@ export const filters = [
 		borderColor: '#FF4500',
 	},
 ];
-
-// Helper function to get stored favorites
-export const getStoredFavorites = async () => {
-	try {
-		const jsonValue = await AsyncStorage.getItem('@ISFiTApp23_FavoriteMarkers');
-		return jsonValue != null ? JSON.parse(jsonValue) : [];
-	} catch (e) {
-		console.error('Error fetching favorites:', e);
-		return [];
-	}
-};

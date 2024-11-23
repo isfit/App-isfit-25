@@ -18,9 +18,7 @@ import InformationScreen from './src/screens/InformationScreen';
 import MarkerInfoScreen from './src/screens/MarkerInfoScreen';
 import AttractionBoxScreen from './src/screens/AttractionBoxScreen';
 import * as Font from 'expo-font';
-
-const width = Dimensions.get('screen').width;
-const height = Dimensions.get('screen').height;
+import { FilterProvider } from './src/context/FilterContext';
 
 const launchScreenColors = ['#C92332', '#FF6D8A', '#71DCFF', '#0078A3'];
 
@@ -159,43 +157,45 @@ function App() {
 	const [showAttractions, setShowAttractions] = useState(false); // Default to showing MapsStackScreen
 
 	return (
-		<NavigationContainer>
-			<MainStack.Navigator screenOptions={{ headerShown: false }}>
-				<MainStack.Screen name='HomeTabs'>
-					{() => (
-						<HomeTabs
-							showAttractions={showAttractions}
-							setShowAttractions={setShowAttractions}
-						/>
-					)}
-				</MainStack.Screen>
-				<MainStack.Screen
-					name='Info'
-					component={InformationScreen}
-					options={({ navigation }) => {
-						return {
-							headerShown: true, // Enable the header
-							headerTitle: 'Theme',
-							headerTintColor: '#FFF5F3',
-							headerStyle: {
-								backgroundColor: '#C92332', // Red
-							},
-							headerLeft: () => (
-								<TouchableOpacity
-									onPress={() => {
-										navigation.navigate('Theme');
-									}}
-									style={{ marginLeft: 10 }}
-								>
-									<FontAwesome name='arrow-left' size={30} color='#FFF5F3' />
-								</TouchableOpacity>
-							),
-						};
-					}}
-				/>
-				<MainStack.Screen name='Show' component={EventScreen} />
-			</MainStack.Navigator>
-		</NavigationContainer>
+		<FilterProvider>
+			<NavigationContainer>
+				<MainStack.Navigator screenOptions={{ headerShown: false }}>
+					<MainStack.Screen name='HomeTabs'>
+						{() => (
+							<HomeTabs
+								showAttractions={showAttractions}
+								setShowAttractions={setShowAttractions}
+							/>
+						)}
+					</MainStack.Screen>
+					<MainStack.Screen
+						name='Info'
+						component={InformationScreen}
+						options={({ navigation }) => {
+							return {
+								headerShown: true, // Enable the header
+								headerTitle: 'Theme',
+								headerTintColor: '#FFF5F3',
+								headerStyle: {
+									backgroundColor: '#C92332', // Red
+								},
+								headerLeft: () => (
+									<TouchableOpacity
+										onPress={() => {
+											navigation.navigate('Theme');
+										}}
+										style={{ marginLeft: 10 }}
+									>
+										<FontAwesome name='arrow-left' size={30} color='#FFF5F3' />
+									</TouchableOpacity>
+								),
+							};
+						}}
+					/>
+					<MainStack.Screen name='Show' component={EventScreen} />
+				</MainStack.Navigator>
+			</NavigationContainer>
+		</FilterProvider>
 	);
 }
 
