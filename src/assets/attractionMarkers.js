@@ -1348,11 +1348,11 @@ export const attractionMarkers = [
 		title: 'Circus',
 		shortDescription: 'Rock music and cheap beer',
 		pressForMoreInfo: 'Press for more info!',
-		photographer: 'From: Nicelocal',
+		photographer: 'Photo by Andreas Ringereide Berg',
 		info: 'MarkerInfo',
 		logo: require('../assets/ExploreTrondheim/Party/Circus.png'),
 		information:
-			'Circus is a fun club with lots of cool decorations. This bar has some of the cheapest beer in Trondheim, which attracts lots of students. This is a perfect place to dance to rock music and meet some locals.',
+			'"Circus is like a damp war trench" - Mikael og Eivind.\n\nCircus is a fun club with lots of cool decorations. This bar has some of the cheapest beer in Trondheim, which attracts lots of students. This is a perfect place to dance to rock music and meet some locals.',
 		latLong: {
 			latitude: 63.43318696046151,
 			longitude: 10.397541099999998,
