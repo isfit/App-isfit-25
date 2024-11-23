@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import {
 	Text,
 	View,
@@ -8,73 +8,22 @@ import {
 	Dimensions,
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { FilterContext } from '../context/FilterContext';
 
 const width = Dimensions.get('screen').width;
 const height = Dimensions.get('screen').height;
 
 const MarkerInfo = ({ title, bilde, information, photographer, itemId }) => {
-	const [isFavorite, setIsFavorite] = useState(false);
+	const { favorites, addFavorite, removeFavorite } = useContext(FilterContext);
+	const isFavorite = favorites.includes(itemId);
 
-	// Logic for storing a favorite
-	const storeFavorites = async (markerKey) => {
-		try {
-			const storedFavorites = await getStoredFavorites();
-			storedFavorites.push(markerKey);
-			await AsyncStorage.setItem(
-				'@ISFiTApp23_FavoriteMarkers',
-				JSON.stringify(storedFavorites)
-			);
-			setIsFavorite(true);
-		} catch (e) {
-			console.log(e);
+	const toggleFavorite = () => {
+		if (isFavorite) {
+			removeFavorite(itemId);
+		} else {
+			addFavorite(itemId);
 		}
 	};
-
-	// Logic for removing a favorite
-	const removeFavorites = async (markerKey) => {
-		try {
-			const storedFavorites = await getStoredFavorites();
-			const filteredFavorites = storedFavorites.filter(
-				(item) => item !== markerKey
-			);
-			await AsyncStorage.setItem(
-				'@ISFiTApp23_FavoriteMarkers',
-				JSON.stringify(filteredFavorites)
-			);
-			setIsFavorite(false);
-		} catch (e) {
-			console.log(e);
-		}
-	};
-
-	// Check if the item is already stored as a favorite
-	const isStored = async (markerKey) => {
-		try {
-			const storedFavorites = await getStoredFavorites();
-			setIsFavorite(storedFavorites.includes(markerKey));
-		} catch (e) {
-			console.log(e);
-		}
-	};
-
-	// Utility function to get stored favorites
-	const getStoredFavorites = async () => {
-		try {
-			const jsonValue = await AsyncStorage.getItem(
-				'@ISFiTApp23_FavoriteMarkers'
-			);
-			return jsonValue != null ? JSON.parse(jsonValue) : [];
-		} catch (e) {
-			console.log(e);
-			return [];
-		}
-	};
-
-	// Initialize favorite status
-	useEffect(() => {
-		isStored(itemId);
-	}, []);
 
 	return (
 		<View>
@@ -95,14 +44,7 @@ const MarkerInfo = ({ title, bilde, information, photographer, itemId }) => {
 			{/* Title and Heart Icon */}
 			<View style={styles.headerWithHeart}>
 				<Text style={styles.headerText}>{title}</Text>
-				<TouchableOpacity
-					style={{ marginLeft: 10 }}
-					onPress={
-						isFavorite
-							? () => removeFavorites(itemId)
-							: () => storeFavorites(itemId)
-					}
-				>
+				<TouchableOpacity style={{ marginLeft: 10 }} onPress={toggleFavorite}>
 					<FontAwesome
 						name={isFavorite ? 'heart' : 'heart-o'}
 						size={25}
