@@ -3,14 +3,14 @@
 		"newArchEnabled": true,
 		"name": "ISFiT25",
 		"icon": "./src/assets/appIcons/red_black.png",
-		"slug": "app-isfit-23",
+		"slug": "app-isfit-25",
 		"version": "1.1.0",
 		"ios": {
-			"bundleIdentifier": "com.isfit.isfit23",
+			"bundleIdentifier": "com.isfit.isfit25",
 			"buildNumber": "1.1.0"
 		},
 		"android": {
-			"package": "com.isfit.isfit23",
+			"package": "com.isfit.isfit25",
 			"versionCode": 3
 		},
 		"assetBundlePatterns": ["**/*"],

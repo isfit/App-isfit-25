@@ -9,7 +9,7 @@ export default function EventScreen() {
 	const getFeed = async () => {
 		const data = [];
 
-		await fetch('http://www.samfundet.no/rss')
+		await fetch('https://www.samfundet.no/rss')
 			.then((response) => response.text())
 			.then((responseData) =>
 				//states which type of data we want to use in the app
