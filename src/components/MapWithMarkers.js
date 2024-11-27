@@ -2,15 +2,11 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState, useRef } from 'react';
 import { StyleSheet, Dimensions, View, TouchableOpacity } from 'react-native';
 import MapView, { Marker, AnimatedRegion } from 'react-native-maps';
-import { calculateDistance, getIconForFilter } from '../utils/ExploreUtils';
 import * as Location from 'expo-location';
-import * as Animatable from 'react-native-animatable';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import {
-	faCircleUser,
-	faLocationArrow,
-	faCity,
-} from '@fortawesome/free-solid-svg-icons';
+import { faLocationArrow, faCity } from '@fortawesome/free-solid-svg-icons';
+
+import { calculateDistance, getIconForFilter } from '../utils/ExploreUtils';
 
 const width = Dimensions.get('screen').width;
 const height = Dimensions.get('screen').height;
@@ -50,9 +46,11 @@ export default function MapWithMarkers({ markersArray }) {
 			const userCoords = {
 				latitude: location.coords.latitude,
 				longitude: location.coords.longitude,
-				latitudeDelta: 0.05,
-				longitudeDelta: 0.05,
+				latitudeDelta: 0.01,
+				longitudeDelta: 0.01,
 			};
+
+			setUserLocation(userCoords);
 
 			const distance = calculateDistance(
 				userCoords.latitude,
@@ -61,13 +59,14 @@ export default function MapWithMarkers({ markersArray }) {
 				INITIAL_REGION.longitude
 			);
 
+			// Set region based on distance
 			if (distance <= 15) {
 				mapRegion.setValue(userCoords);
-				setUserLocation(userCoords);
 			} else {
 				mapRegion.setValue(INITIAL_REGION);
 			}
 
+			// Subscribe to location updates
 			locationSubscription = await Location.watchPositionAsync(
 				{
 					accuracy: Location.Accuracy.High,
@@ -78,20 +77,11 @@ export default function MapWithMarkers({ markersArray }) {
 					const updatedCoords = {
 						latitude: newLocation.coords.latitude,
 						longitude: newLocation.coords.longitude,
-						latitudeDelta: 0.05,
-						longitudeDelta: 0.05,
+						latitudeDelta: 0.01,
+						longitudeDelta: 0.01,
 					};
 
-					const newDistance = calculateDistance(
-						updatedCoords.latitude,
-						updatedCoords.longitude,
-						INITIAL_REGION.latitude,
-						INITIAL_REGION.longitude
-					);
-
-					if (newDistance <= 15) {
-						setUserLocation(updatedCoords);
-					}
+					setUserLocation(updatedCoords);
 				}
 			);
 		};
@@ -122,24 +112,11 @@ export default function MapWithMarkers({ markersArray }) {
 			<MapView.Animated
 				ref={mapViewRef}
 				style={styles.mapStyle}
-				initialRegion={INITIAL_REGION}
+				initialRegion={mapRegion}
+				showsUserLocation={true} // Enable native location marker
+				followsUserLocation={false} // Optional: Disable automatic following
 			>
-				{userLocation && (
-					<Marker
-						coordinate={userLocation}
-						title='Your Location'
-						description='This is where you are.'
-					>
-						<Animatable.View
-							animation='pulse'
-							easing='ease-out'
-							iterationCount='infinite'
-						>
-							<FontAwesomeIcon icon={faCircleUser} size={30} color='#FF6D8A' />
-						</Animatable.View>
-					</Marker>
-				)}
-
+				{/* Custom markers */}
 				{markersArray.map((m, i) => (
 					<Marker
 						coordinate={m.latLong}
@@ -161,38 +138,32 @@ export default function MapWithMarkers({ markersArray }) {
 				))}
 			</MapView.Animated>
 
+			{/* Recenter buttons */}
 			<View
 				style={[
 					styles.buttonContainer,
 					userLocation ? null : styles.circleShape,
 				]}
 			>
+				{/* Recenter to user location */}
 				{userLocation && (
-					<>
-						<TouchableOpacity
-							style={styles.iconButton}
-							onPress={recenterToUser}
-						>
-							<FontAwesomeIcon
-								icon={faLocationArrow}
-								size={20}
-								color='#FF6D8A'
-							/>
-						</TouchableOpacity>
-						<View style={styles.divider} />
-					</>
+					<TouchableOpacity style={styles.iconButton} onPress={recenterToUser}>
+						<FontAwesomeIcon icon={faLocationArrow} size={20} color='#FF6D8A' />
+					</TouchableOpacity>
 				)}
 
-				<TouchableOpacity
-					style={[styles.iconButton]}
-					onPress={recenterToInitial}
-				>
+				{/* Divider */}
+				{userLocation && <View style={styles.divider} />}
+
+				{/* Recenter to initial region */}
+				<TouchableOpacity style={styles.iconButton} onPress={recenterToInitial}>
 					<FontAwesomeIcon icon={faCity} size={20} color='#FF6D8A' />
 				</TouchableOpacity>
 			</View>
 		</View>
 	);
 }
+
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
@@ -209,14 +180,9 @@ const styles = StyleSheet.create({
 		borderRadius: 25,
 		elevation: 5,
 		padding: 5,
-		flexDirection: 'column',
 		alignItems: 'center',
 		justifyContent: 'space-between',
-		backgroundColor: '#FFFFFF', // Set the background color
-		justifyContent: 'center', // Center the content horizontally
-		alignItems: 'center', // Center the content vertically
-		elevation: 5, // Add shadow (Android)
-		shadowColor: '#000', // Add shadow (iOS)
+		shadowColor: '#000',
 		shadowOffset: { width: 0, height: 2 },
 		shadowOpacity: 0.25,
 		shadowRadius: 3.84,
@@ -228,6 +194,7 @@ const styles = StyleSheet.create({
 		width: '100%',
 		height: 1,
 		backgroundColor: '#FF6D8A',
+		marginVertical: 5,
 	},
 	circleShape: {
 		borderRadius: 50,
