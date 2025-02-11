@@ -1,39 +1,53 @@
 {
-  "cli": {
-    "version": ">= 3.2.1"
-  },
-  "build": {
-    "development-simulator": {
-      "developmentClient": true,
-      "distribution": "internal",
-      "ios": {
-        "simulator": true,
-        "resourceClass": "m1-medium"
-      }
-    },
-    "development": {
-      "distribution": "internal",
-      "android": {
-        "gradleCommand": ":app:assembleDebug"
-      },
-      "ios": {
-        "buildConfiguration": "Debug",
-        "resourceClass": "m1-medium"
-      }
-    },
-    "preview": {
-      "distribution": "internal",
-      "ios": {
-        "resourceClass": "m1-medium"
-      }
-    },
-    "production": {
-      "ios": {
-        "resourceClass": "m1-medium"
-      }
-    }
-  },
-  "submit": {
-    "production": {}
-  }
+	"cli": {
+		"version": ">= 3.2.1"
+	},
+	"build": {
+		"preview2": {
+			"android": {
+				"gradleCommand": ":app:assembleRelease"
+			}
+		},
+		"preview3": {
+			"developmentClient": true
+		},
+		"preview4": {
+			"distribution": "internal"
+		},
+		"development-simulator": {
+			"developmentClient": true,
+			"distribution": "internal",
+			"ios": {
+				"simulator": true,
+				"resourceClass": "m1-medium"
+			}
+		},
+		"development": {
+			"distribution": "internal",
+			"android": {
+				"gradleCommand": ":app:assembleDebug"
+			},
+			"ios": {
+				"buildConfiguration": "Debug",
+				"resourceClass": "m1-medium"
+			}
+		},
+		"preview": {
+			"distribution": "internal",
+			"android": {
+				"buildType": "apk"
+			},
+			"ios": {
+				"resourceClass": "m1-medium"
+			}
+		},
+		"production": {
+			"ios": {
+				"resourceClass": "m1-medium"
+			}
+		}
+	},
+	"submit": {
+		"production": {}
+	}
 }

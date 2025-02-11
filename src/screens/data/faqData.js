@@ -5,11 +5,11 @@ export const faqQuestions = [
 		questions: [
 			{
 				title: 'Entering Samfundet',
-				data: 'Samfundet can be entered through the main entrance or Luka (the glass entrance).',
+				data: 'Edgar serves as the entrance to Samfundet on weekdays and Saturdays until 21:00. After 21:00 on Saturdays, entry to Samfundet is available through either the main entrance or Luka (the glass entrance).',
 			},
 			{
 				title: 'Membership at Samfundet',
-				data: 'As a participant, you are considered a member of Studentersamfundet. You will get membership prices on events, food and drinks. You will also get free entrance to Samfundet. You can identify yourself with your festival wristband.',
+				data: 'As a participant, you are considered a member of Studentersamfundet, and will therefore get membership prices on events and free entrance to Samfundet. You can identify yourself with your festival wristband.',
 			},
 			{
 				title: 'Events',
@@ -39,7 +39,7 @@ export const faqQuestions = [
 			},
 			{
 				title: 'Trafoen',
-				data: 'Location: Klæbuveien 1\nPhysical opening hours: 08:00 - 22:00\nPhone number: +47 458 53 167\n\nCall if you need an answer right away, if not, contact us on Slack. The phone is open from 08-22. You can call the same number 24/7, but only in emergencies.\n\nTrafoen is the red square building between Samfundet and Gløshaugen. During the festival Trafoen will serve as your information central, and will be open all day. If you arrive on the 7th or 9th of February, you can check in at Trafoen and get your host information there.',
+				data: 'Location: Klæbuveien 1\nPhysical opening hours: 08:00 - 22:00\nPhone number: TBA\n\nCall if you need an answer right away, if not, contact us on Slack. The phone is open from 08-22. You can call the same number 24/7, but only in emergencies.\n\nTrafoen is the red square building between Samfundet and Gløshaugen. During the festival Trafoen will serve as your information central, and will be open all days. If you arrive on the 12th or 14th of March, you can check in at Trafoen and get your host information there.',
 			},
 			{
 				title: 'Handling the cold weather',
@@ -57,15 +57,15 @@ export const faqQuestions = [
 		questions: [
 			{
 				title: 'The Opening Ceremony',
-				data: 'Dress code: Galla/national costume \nThe Opening Ceremony will happen TBA at Studentersamfundet.\n\nWelcome to Trondheim and ISFiT 2025! The Opening Ceremony kicks off the Festival and gathers all the participants and volunteers for a grand opening! The show takes place at Studentersamfundet where we meet for an evening of music, speeches and dances! We look forward to meeting you!',
+				data: 'Dress code: Galla/national costume.\nDate: 13th of March.\nLocation: Studentersamfundet\n\nWelcome to Trondheim and ISFiT 2025! The Opening Ceremony kicks off the Festival and gathers all the participants and volunteers for a grand opening! The show takes place at Studentersamfundet where we meet for an evening of music, speeches and dances! We look forward to meeting you!',
 			},
 			{
 				title: 'The Student Peace Prize Ceremony',
-				data: 'Dress code: Galla/national costume \nTBA, we invite you to highlight and celebrate DOXA Magazine, the winner of the Student Peace Prize and their work. The Peace Prize ceremony is held in Olavshallen - Trondheims largest cultural center - and will be a night to remember!',
+				data: 'Dress code: Galla/national costume. \nDate: TBA.\nLocation: Olavshallen\n\nWe invite you to highlight and celebrate Iniciativa Puentes por los Estudiantes de Nicaragua (IPEN). IPEN is an ideal organization based in Costa Rica, started by students from Nicaragua. Since 2022 IPEN has worked for the right of education and academic freedom in their home country.\n\nThe Peace Prize ceremony is held in Olavshallen - Trondheims largest cultural center - and will be a night to remember!',
 			},
 			{
 				title: 'The Closing Ceremony',
-				data: 'Dress code: Galla/national costume \nTBA, as the festival comes to an end, what better way to gather participants and volunteers to honor what we have accomplished together? This evening we will fill Studentersamfundet one last time to celebrate the ISFiT-25!',
+				data: 'Dress code: Galla/national costume.\nDate: 23rd of March.\nLocation: Studentersamfundet\n\nAs the festival comes to an end, what better way to gather participants and volunteers to honor what we have accomplished together? This evening we will fill Studentersamfundet one last time to celebrate the ISFiT-25!',
 			},
 		],
 	},
@@ -83,7 +83,7 @@ export const faqQuestions = [
 			},
 			{
 				title: 'Put on a jacket',
-				data: "February is a winter month, and the outside can be both cold and wet. Don't let this ruin your day, and dress accordingly.",
+				data: 'March is a winter month, often bringing cold and wet weather. While daytime temperatures may rise above 0°C, evenings and nights can still be quite chilly. Plan ahead and dress appropriately.',
 			},
 			{
 				title: 'Have fun and meet new people',
@@ -134,11 +134,11 @@ export const faqQuestions = [
 		questions: [
 			{
 				title: 'General Information',
-				data: 'Trafoen: +47 458 53 167\n\nFor questions about being a participant in ISFiT, please email question@isfit.no.',
+				data: 'Trafoen: TBA\n\nFor questions about being a participant in ISFiT, please email question@isfit.no.',
 			},
 			{
 				title: 'Emergency',
-				data: "If there is an emergency you should call: \n113 for ambulance \n112 for police \n110 for fire department \n116 117 for Emergency Room \n\nTrafoen: +47 458 53 167\n\nIf you have and emergency, please contact Trafoen as well! \nThe hospital in Trondheim is located across the road from Studentersamfundet. If you have a smaller incident, contact the Emergency Room BEFORE you go there. The Emergency Room is located at the hospital and they don't have drop-in service. If you are in need of a bandaid or something similar, go to Trafoen.",
+				data: "If there is an emergency you should call: \n113 for ambulance \n112 for police \n110 for fire department \n116 117 for Emergency Room \n\nTrafoen: TBA\n\nIf you have and emergency, please contact Trafoen as well! \nThe hospital in Trondheim is located across the road from Studentersamfundet. If you have a smaller incident, contact the Emergency Room BEFORE you go there. The Emergency Room is located at the hospital and they don't have drop-in service. If you are in need of a bandaid or something similar, go to Trafoen.",
 			},
 		],
 	},
