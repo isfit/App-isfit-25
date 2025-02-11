@@ -49,14 +49,15 @@ export default function FAQScreen({ navigation }) {
 					some practical information regarding the festival. Additional
 					information will be posted on the ISFiT25 website.
 				</Text>
+				<Text style={styles.descriptionText}>
+					Festival dates: 13th-23rd of March.
+				</Text>
 				<View style={{ flexDirection: 'row' }}>
 					<Text style={styles.linkTextDescription}>
 						For more information visit
 					</Text>
 					<TouchableOpacity
-						onPress={() =>
-							Linking.openURL('https://www.isfit.org/participant-info')
-						}
+						onPress={() => Linking.openURL('https://www.isfit.org/')}
 						style={{ backgroundColor: 'white' }}
 					>
 						<Text style={styles.linkText}>isfit.org</Text>
