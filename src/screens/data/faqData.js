@@ -57,15 +57,15 @@ export const faqQuestions = [
 		questions: [
 			{
 				title: 'The Opening Ceremony',
-				data: 'Dress code: Galla/national costume.\nDate: 13th of March.\nLocation: Studentersamfundet\n\nWelcome to Trondheim and ISFiT 2025! The Opening Ceremony kicks off the Festival and gathers all the participants and volunteers for a grand opening! The show takes place at Studentersamfundet where we meet for an evening of music, speeches and dances! We look forward to meeting you!',
+				data: 'Dress code: Galla/national costume.\nDate: 14th of March.\nTime: see participant handbook.\nLocation: Studentersamfundet (Storsalen).\n\nWelcome to Trondheim and ISFiT 2025! The Opening Ceremony kicks off the Festival and gathers all the participants and volunteers for a grand opening! The show takes place at Studentersamfundet where we meet for an evening of music, speeches and dances! We look forward to meeting you!',
 			},
 			{
 				title: 'The Student Peace Prize Ceremony',
-				data: 'Dress code: Galla/national costume. \nDate: TBA.\nLocation: Olavshallen\n\nWe invite you to highlight and celebrate Iniciativa Puentes por los Estudiantes de Nicaragua (IPEN). IPEN is an ideal organization based in Costa Rica, started by students from Nicaragua. Since 2022 IPEN has worked for the right of education and academic freedom in their home country.\n\nThe Peace Prize ceremony is held in Olavshallen - Trondheims largest cultural center - and will be a night to remember!',
+				data: 'Dress code: Galla/national costume. \nDate: 16th of March.\nTime: see participant handbook.\nLocation: Olavshallen.\n\nWe invite you to highlight and celebrate Iniciativa Puentes por los Estudiantes de Nicaragua (IPEN). IPEN is an ideal organization based in Costa Rica, started by students from Nicaragua. Since 2022 IPEN has worked for the right of education and academic freedom in their home country.\n\nThe Peace Prize ceremony is held in Olavshallen - Trondheims largest cultural center - and will be a night to remember!',
 			},
 			{
 				title: 'The Closing Ceremony',
-				data: 'Dress code: Galla/national costume.\nDate: 23rd of March.\nLocation: Studentersamfundet\n\nAs the festival comes to an end, what better way to gather participants and volunteers to honor what we have accomplished together? This evening we will fill Studentersamfundet one last time to celebrate the ISFiT-25!',
+				data: 'Dress code: Galla/national costume.\nDate: 23rd of March.\nTime: see participant handbook.\nLocation: Studentersamfundet (Storsalen).\n\nAs the festival comes to an end, what better way to gather participants and volunteers to honor what we have accomplished together? This evening we will fill Studentersamfundet one last time to celebrate the ISFiT-25!',
 			},
 		],
 	},
