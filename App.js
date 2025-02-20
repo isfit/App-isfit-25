@@ -211,7 +211,7 @@ function SplashScreen(props) {
 		loadFont();
 		const timer = setTimeout(() => {
 			props.setLoading(!props.loading);
-		}, 2000);
+		}, 1000);
 		return () => clearTimeout(timer);
 	}, []);
 
