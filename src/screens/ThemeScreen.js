@@ -1,22 +1,11 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { ScrollView } from 'react-native';
 import ArticleBox from '../components/ArticleBox';
 import { themeInfo } from '../assets/themeInfo';
 
-export default function ThemeScreen({ navigation }) {
-	const scrollRef = useRef();
-
-	useEffect(() => {
-		navigation.addListener('focus', () => {
-			scrollRef.current?.scrollTo({
-				y: 0,
-				animated: true,
-			});
-		});
-	}, [navigation]);
-
+export default function ThemeScreen() {
 	return (
-		<ScrollView ref={scrollRef}>
+		<ScrollView>
 			{themeInfo.map((m, i) =>
 				m.title.length > 0 ? (
 					<ArticleBox
