@@ -1,5 +1,19 @@
 export const faqQuestions = [
 	{
+		key: 8,
+		category: 'Contact',
+		questions: [
+			{
+				title: 'General Information',
+				data: 'Trafoen: TBA\n\nFor questions about being a participant in ISFiT, please email question@isfit.no.',
+			},
+			{
+				title: 'Emergency',
+				data: 'If there is an emergency you should call: \n113 for ambulance \n112 for police \n110 for fire department \n116 117 for Emergency Room \n\nWhen speaking to the operator, it is important to state:\n1) Who you are\n2)Where you are\n3)The nature of the emergency\n\nIn the case you dial the incorrect emergency number, you will be redirected to the correct emergency agency, but may lose valuable time in the process.\n\nAfterwards, it is important that you call and inform the secretariat at the Trafo about the emergency situation.',
+			},
+		],
+	},
+	{
 		key: 1,
 		category: 'Event',
 		questions: [
@@ -12,8 +26,8 @@ export const faqQuestions = [
 				data: 'As a participant, you are considered a member of Studentersamfundet, and will therefore get membership prices on events and free entrance to Samfundet. You can identify yourself with your festival wristband.',
 			},
 			{
-				title: 'Events',
-				data: 'A lot of events are free of charge for you as a participant. Tickets for events with fees can be purchased at samfundet.no. Info about events can also be found at samfundet.no or on the events page right here in the app!',
+				title: 'Event information',
+				data: 'Every ISFiT event has been carefully crafted by our amazing volunteers over the past two years to bring you a diverse and engaging program. Be on time, late arrivals will not be admitted.\n\nISFiT offers both free and ticketed events. Ticketed event details can be found on the Studentersamfundet website (https://www.samfundet.no/) or in the Events tab in the app, so be sure to check the program and secure your ticket.\n\nThis years theme, Power, shapes a cultural program featuring debates, art, literature, and concerts, all exploring its influence and impact.\n\nWe cannot wait for you to experience this inspiring and thought-provoking festival!',
 			},
 			{
 				title: 'Where can I get information\nabout the workshops?',
@@ -39,7 +53,7 @@ export const faqQuestions = [
 			},
 			{
 				title: 'Trafoen',
-				data: 'Location: Klæbuveien 1\nPhysical opening hours: 08:00 - 22:00\nPhone number: TBA\n\nCall if you need an answer right away, if not, contact us on Slack. The phone is open from 08-22. You can call the same number 24/7, but only in emergencies.\n\nTrafoen is the red square building between Samfundet and Gløshaugen. During the festival Trafoen will serve as your information central, and will be open all days. If you arrive on the 12th or 14th of March, you can check in at Trafoen and get your host information there.',
+				data: 'Location: Klæbuveien 1\nPhysical opening hours: 08:00 - 22:00\nPhone number: TBA\n\nCall if you need an answer right away, if not, contact us on Slack. The phone is open from 08-22. You can call the same number 24/7, but only in emergencies.\n\nTrafoen is a square red building located between Studentersamfundet and Gløshaugen. During ISFiT it will serve as an information centre.  Please contact Trafoen if you need help or have any questions. Volunteers will try their best to help with any issues you may have.',
 			},
 			{
 				title: 'Handling the cold weather',
@@ -56,21 +70,71 @@ export const faqQuestions = [
 		category: 'Ceremonies',
 		questions: [
 			{
+				title: 'General information',
+				data: 'The ceremonies are a central part of ISFiT bringing together participants and spectators in a celebration of power, cultural exchange, and dialogue. These ceremonies will emphasize the significance of ISFiT, featuring inspiring speeches and dynamic performances that showcase the festival impact, the strength of global collaboration, and the transformative power of student voices. You do not want to miss out on this!',
+			},
+			{
+				title: 'Relevant for all ceremonies',
+				data: 'Price: free!\n\nAttire/Dress code: National costume/formal attire\n\nAttendance: Due to the ceremonies importance to the festival as a whole, we highly recommend attending. To ensure an organized and immersive experience, we have arranged for workshop groups to attend together. Additional guidance and seating arrangements will be provided to facilitate smooth participation.\n\nStreaming: This year, ISFiT is making the ceremonies more accessible than ever! Due to high demand and great interest, we will be streaming the ceremonies to an additional location, ensuring that everyone has the opportunity to experience them. To maintain a fair and inclusive experience, we will arrange for all participants to attend either the opening or closing ceremony in person. This way, every participant gets to be part of ISFiT’s most significant moments while also making the ceremonies available to a wider audience.\n\nNB! It is very important to be on time, preferably 30-45 minutes beforehand, you will not be let into the ceremonies if you arrive late!',
+			},
+			{
 				title: 'The Opening Ceremony',
-				data: 'Dress code: Galla/national costume.\nDate: 14th of March.\nTime: see participant handbook.\nLocation: Studentersamfundet (Storsalen).\n\nWelcome to Trondheim and ISFiT 2025! The Opening Ceremony kicks off the Festival and gathers all the participants and volunteers for a grand opening! The show takes place at Studentersamfundet where we meet for an evening of music, speeches and dances! We look forward to meeting you!',
+				data: 'Dress code: Galla/national costume.\nDate: 14th of March.\nTime: 19:00-21:00.\nLocation: Studentersamfundet (Storsalen).\n\nWelcome to Trondheim and ISFiT 2025! The Opening Ceremony will start the festival with a bang! With important speakers, concerts, and performances related to the ISFiT25 theme “Power”; participants, volunteers and others will be spectacularly introduced to the festival!',
 			},
 			{
 				title: 'The Student Peace Prize Ceremony',
-				data: 'Dress code: Galla/national costume. \nDate: 16th of March.\nTime: see participant handbook.\nLocation: Olavshallen.\n\nWe invite you to highlight and celebrate Iniciativa Puentes por los Estudiantes de Nicaragua (IPEN). IPEN is an ideal organization based in Costa Rica, started by students from Nicaragua. Since 2022 IPEN has worked for the right of education and academic freedom in their home country.\n\nThe Peace Prize ceremony is held in Olavshallen - Trondheims largest cultural center - and will be a night to remember!',
+				data: 'Dress code: Galla/national costume. \nDate: 16th of March.\nTime: 19:00-21:00.\nLocation: Olavshallen, Kjøpmannsgata 48.\n\nThe Student Peace Prize Ceremony is one of the most important events during the festival. During ISFiT25, IPEN will be receiving The Student Peace Price on behalf of all Norwegian students. The ceremony will include important speeches and beautiful performances.',
 			},
 			{
 				title: 'The Closing Ceremony',
-				data: 'Dress code: Galla/national costume.\nDate: 23rd of March.\nTime: see participant handbook.\nLocation: Studentersamfundet (Storsalen).\n\nAs the festival comes to an end, what better way to gather participants and volunteers to honor what we have accomplished together? This evening we will fill Studentersamfundet one last time to celebrate the ISFiT-25!',
+				data: 'Dress code: Galla/national costume.\nDate: 23rd of March.\nTime: 19:00-21:00.\nLocation: Studentersamfundet (Storsalen).\n\nThe Closing Ceremony will end the festival with power! Including many musical features and striking poetry. During this ceremony we will give our gratitude to the volunteers and participants of ISFiT25 who all made this happen!',
 			},
 		],
 	},
 	{
 		key: 4,
+		category: 'Rules and Cultural Tips',
+		questions: [
+			{
+				title: 'Diverse Culture',
+				data: 'ISFiT unites people from all over the world, and this means we will meet others with completely different backgrounds and cultures. We will be spending a lot of time together during the festival, so we must stay aware of our cultural differences. Tolerance, patience, and acceptance are vital.',
+			},
+			{
+				title: 'Be on time',
+				data: 'Schedules will be tight during the festival, so people must be on time. It is common courtesy to notify the appropriate individuals if you can’t make it to an appointment, or if you will be delayed.',
+			},
+			{
+				title: 'Money',
+				data: 'In Norway, debit and credit cards are used more frequently than cash. This means most transactions will be by card. All stores take cards and contactless payment (e.g., Apple Pay), and the bartenders at Samfundet - where we will be spending most of our time - heavily prefer cards over cash as they might not have enough change for you at hand. The Norwegian currency is NOK (Norwegian Krone) and often shown as kr (short for krone).',
+			},
+			{
+				title: 'Pharamcies',
+				data: 'Most medications are sold exclusively through pharmacies, except for mild painkillers that are available in supermarkets. Most pharmacies close at 17 or 18 and are closed on Sundays. Vitusapotek pharmacy at Solsiden is open from 08:30 to 24:00 on weekdays and Saturdays, as well as from 10:00 to 24:00 on Sundays.',
+			},
+			{
+				title: 'Act Green',
+				data: 'Use your feet or public transport\n\nTrondheim is a perfect city to explore on foot and by doing so, not only do you reduce your carbon footprint, but you also get the opportunity to stumble upon hidden gems along the way.\n\nAvoid littering and be sure to recycle and use the right bins while doing so. In Trondheim, we have a well-established recycling system that includes: general waste, paper and cardboard, plastic, glass and metal waste, food waste - and even a pante-system where you can return your bottles and get up to NOK 3 for each one!\n\nMake responsible consumer choices and do not be tempted by fast fashion. Trondheim has a variety of vintage shops that are full of one-of-a-kind finds. If you get the chance, support and embrace local farmers and enjoy authentic Norwegian food.\n\nDo not let the energy run wild. Be mindful of your water use and remember to turn off the lights and heater when leaving the room. Your small actions help us conserve resources and energy.',
+			},
+			{
+				title: 'Norwegian Laws',
+				data: 'Norway may have some laws you are unfamiliar with. You must follow all Norwegian laws while you are here, otherwise you may be fined large sums of money. The below information tabs are some of the most important ones to know and obey.',
+			},
+			{
+				title: 'Alcohol',
+				data: 'The alcohol policy in Norway might be quite different from what you are used to. It is illegal to consume alcohol in public places of any kind. This includes bringing alcohol into or out of a restaurant, club, or bar. You have to be at least 18 years of age to buy beer and wine, and 20 years of age to buy liquor.',
+			},
+			{
+				title: 'Drugs',
+				data: 'All narcotics, including marijuana, are illegal in Norway. Please do not use any drugs during the festival.',
+			},
+			{
+				title: 'Smoking Cigarettes',
+				data: 'You are not allowed to smoke inside bars, cafés, restaurants, public buildings, etc. anywhere in Norway. If you want to smoke, you have to go outside and respect any posted non-smoking signs.',
+			},
+		],
+	},
+	{
+		key: 5,
 		category: "Do's and dont's",
 		questions: [
 			{
@@ -82,8 +146,8 @@ export const faqQuestions = [
 				data: "If you have some empty bottles you don't need, don't throw them away. You can recycle them through a system we call panting. Using a machine found in most grocery stores, you can put in your bottles and cans and get some money for it. This is good for both the environment and your economy.",
 			},
 			{
-				title: 'Put on a jacket',
-				data: 'March is a winter month, often bringing cold and wet weather. While daytime temperatures may rise above 0°C, evenings and nights can still be quite chilly. Plan ahead and dress appropriately.',
+				title: 'Bring your warmest clothes',
+				data: 'Norway’s winters are beautiful, but can tend to be quite cold, with an average temperature of -5°C (28°F) in Trondheim in March, sometimes dropping as low as -10°C (14°F). We strongly recommend bringing your warmest clothing for the festival, especially for Snow Day, when you’ll be outside all day enjoying the snow. For those who aren’t used to cold climates, don’t worry—your host family may be able to lend you some extra layers if needed, and the ISFiT secretariat will also have an emergency supply of warm clothing available.\n\nGet ready to embrace Norwegian winter culture, challenge yourself to try something new, and create lasting memories with friends in the snow!',
 			},
 			{
 				title: 'Have fun and meet new people',
@@ -100,17 +164,17 @@ export const faqQuestions = [
 		],
 	},
 	{
-		key: 5,
+		key: 6,
 		category: 'Transport',
 		questions: [
 			{
-				title: 'Info',
-				data: 'As a participant of ISFiT, you can travel with the line buses and the tram for free in Trondheim. Travel with the night busses is not covered by ISFiT.\n\nInformation about the bus routes can be found in the AtB Reise app. The app can be downloaded from App Store for iPhone and Google Play Store for Android. Your wristband serves as your ticket.\n\nNote that the night buses only run during the weekend. On weekdays the latest buses go around 00:30 am, while on weekends (Friday and Saturday night) the last ones go around 03:00 am from Samfundet. You will be able to view the bus routes in real time in the app.',
+				title: 'Travel with AtB for free',
+				data: 'When you register, you will receive a wristband at Studentersamfundet that grants you free access to buses and trams within zone A. Please take good care of it!\n\nImportant details:\n - The wristband is valid from March 13th to March 24th.\n - Wristband is valid for buses and trams in zone A.\n - They do not cover night buses, night trams, or any trains. If you need to take a night bus, you will need to purchase a separate ticket.\n - Wristbands are personal, so please wear them throughout the festival. If you lose yours, you will need to buy your own tickets.\n - The AtB app can be used to check schedules and buy tickets if needed\n - During ticket checks, you will need to show your wristband. If you are not wearing the wristband, it will be treated as an invalid ticket, and you will be fined.\n\nWe hope this helps you explore Trondheim with ease!',
 			},
 		],
 	},
 	{
-		key: 6,
+		key: 7,
 		category: 'Host',
 		questions: [
 			{
@@ -125,20 +189,6 @@ export const faqQuestions = [
 			{
 				title: 'What do I do if I want to change host? ',
 				data: 'You can contact headofhost@isfit.no or call Trafoen',
-			},
-		],
-	},
-	{
-		key: 7,
-		category: 'Contact',
-		questions: [
-			{
-				title: 'General Information',
-				data: 'Trafoen: TBA\n\nFor questions about being a participant in ISFiT, please email question@isfit.no.',
-			},
-			{
-				title: 'Emergency',
-				data: "If there is an emergency you should call: \n113 for ambulance \n112 for police \n110 for fire department \n116 117 for Emergency Room \n\nTrafoen: TBA\n\nIf you have and emergency, please contact Trafoen as well! \nThe hospital in Trondheim is located across the road from Studentersamfundet. If you have a smaller incident, contact the Emergency Room BEFORE you go there. The Emergency Room is located at the hospital and they don't have drop-in service. If you are in need of a bandaid or something similar, go to Trafoen.",
 			},
 		],
 	},
