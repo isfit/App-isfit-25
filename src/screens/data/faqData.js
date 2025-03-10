@@ -5,11 +5,11 @@ export const faqQuestions = [
 		questions: [
 			{
 				title: 'General Information',
-				data: 'Trafoen: TBA\n\nFor questions about being a participant in ISFiT, please email question@isfit.no.',
+				data: 'Trafoen: +47 401 65 361\n\nFor questions about being a participant in ISFiT, please email question@isfit.no.',
 			},
 			{
 				title: 'Emergency',
-				data: 'If there is an emergency you should call: \n113 for ambulance \n112 for police \n110 for fire department \n116 117 for Emergency Room \n\nWhen speaking to the operator, it is important to state:\n1) Who you are\n2)Where you are\n3)The nature of the emergency\n\nIn the case you dial the incorrect emergency number, you will be redirected to the correct emergency agency, but may lose valuable time in the process.\n\nAfterwards, it is important that you call and inform the secretariat at the Trafo about the emergency situation.',
+				data: 'If there is an emergency you should call: \n113 for ambulance \n112 for police \n110 for fire department \n116 117 for Emergency Room \n\nWhen speaking to the operator, it is important to state:\n1) Who you are\n2)Where you are\n3)The nature of the emergency\n\nIn the case you dial the incorrect emergency number, you will be redirected to the correct emergency agency, but may lose valuable time in the process.\n\nAfterwards, it is important that you call and inform the secretariat at the Trafo (+47 401 65 361) about the emergency situation.',
 			},
 		],
 	},
@@ -49,11 +49,11 @@ export const faqQuestions = [
 		questions: [
 			{
 				title: 'What to do if you have questions',
-				data: 'If you have any questions, please direct them to the volunteers with ISFiT t-shirts or call Trafoen. The staff at Samfundet cannot answer questions regarding the festival.',
+				data: 'If you have any questions, please direct them to the volunteers with ISFiT t-shirts or call Trafoen (+47 401 65 361). The staff at Samfundet cannot answer questions regarding the festival.',
 			},
 			{
 				title: 'Trafoen',
-				data: 'Location: Klæbuveien 1\nPhysical opening hours: 08:00 - 22:00\nPhone number: TBA\n\nCall if you need an answer right away, if not, contact us on Slack. The phone is open from 08-22. You can call the same number 24/7, but only in emergencies.\n\nTrafoen is a square red building located between Studentersamfundet and Gløshaugen. During ISFiT it will serve as an information centre.  Please contact Trafoen if you need help or have any questions. Volunteers will try their best to help with any issues you may have.',
+				data: 'Location: Klæbuveien 1\nPhysical opening hours: 08:00 - 22:00\nPhone number: +47 401 65 361\n\nCall if you need an answer right away, if not, contact us on Slack. The phone is open from 08-22. You can call the same number 24/7, but only in emergencies.\n\nTrafoen is a square red building located between Studentersamfundet and Gløshaugen. During ISFiT it will serve as an information centre.  Please contact Trafoen if you need help or have any questions. Volunteers will try their best to help with any issues you may have.',
 			},
 			{
 				title: 'Handling the cold weather',
@@ -61,7 +61,7 @@ export const faqQuestions = [
 			},
 			{
 				title: 'Help and someone to talk to',
-				data: 'If you need help or someone to talk to, contact Trafoen. We can put you in touch with a medic, a mental health professional, a priest, etc. Trafoen will also assist you with any other issue you may have.',
+				data: 'If you need help or someone to talk to, contact Trafoen (+47 401 65 361). We can put you in touch with a medic, a mental health professional, a priest, etc. Trafoen will also assist you with any other issue you may have.',
 			},
 		],
 	},
@@ -184,11 +184,11 @@ export const faqQuestions = [
 			{
 				title:
 					'What do I do if something happens with\nmy host, or at the place I am staying at?',
-				data: 'You can contact headofhost@isfit.no or call Trafoen',
+				data: 'You can contact headofhost@isfit.no or call Trafoen (+47 401 65 361)',
 			},
 			{
 				title: 'What do I do if I want to change host? ',
-				data: 'You can contact headofhost@isfit.no or call Trafoen',
+				data: 'You can contact headofhost@isfit.no or call Trafoen (+47 401 65 361)',
 			},
 		],
 	},
